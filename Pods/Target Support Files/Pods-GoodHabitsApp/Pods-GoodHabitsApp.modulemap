@@ -1,0 +1,6 @@
+framework module Pods_GoodHabitsApp {
+  umbrella header "Pods-GoodHabitsApp-umbrella.h"
+
+  export *
+  module * { export * }
+}
