@@ -14,6 +14,7 @@
 		25133A8E225A638D006CED48 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25133A8D225A638D006CED48 /* Assets.xcassets */; };
 		25133A91225A638D006CED48 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 25133A8F225A638D006CED48 /* LaunchScreen.storyboard */; };
 		255D0EF6225A86FB0055FA6E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 255D0EF5225A86FB0055FA6E /* GoogleService-Info.plist */; };
+		25A17C5D225AA4D400B679D4 /* ConnectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A17C5C225AA4D400B679D4 /* ConnectViewController.swift */; };
 		7B93E285AAF24A105BDD80ED /* Pods_GoodHabitsApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE60D1772D4EBAB2E42AAEA1 /* Pods_GoodHabitsApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -28,6 +29,7 @@
 		25133A90225A638D006CED48 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		25133A92225A638D006CED48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		255D0EF5225A86FB0055FA6E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		25A17C5C225AA4D400B679D4 /* ConnectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectViewController.swift; sourceTree = "<group>"; };
 		307A12C5A453DC69C6D469DF /* Pods-GoodHabitsApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoodHabitsApp.release.xcconfig"; path = "Target Support Files/Pods-GoodHabitsApp/Pods-GoodHabitsApp.release.xcconfig"; sourceTree = "<group>"; };
 		CE60D1772D4EBAB2E42AAEA1 /* Pods_GoodHabitsApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GoodHabitsApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -73,6 +75,7 @@
 				25133A92225A638D006CED48 /* Info.plist */,
 				25133A8A225A638B006CED48 /* GoodHabitsApp.xcdatamodeld */,
 				255D0EF5225A86FB0055FA6E /* GoogleService-Info.plist */,
+				25A17C5C225AA4D400B679D4 /* ConnectViewController.swift */,
 			);
 			path = GoodHabitsApp;
 			sourceTree = "<group>";
@@ -222,6 +225,7 @@
 				25133A86225A638B006CED48 /* ViewController.swift in Sources */,
 				25133A84225A638B006CED48 /* AppDelegate.swift in Sources */,
 				25133A8C225A638B006CED48 /* GoodHabitsApp.xcdatamodeld in Sources */,
+				25A17C5D225AA4D400B679D4 /* ConnectViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
