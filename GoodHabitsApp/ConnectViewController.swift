@@ -15,7 +15,8 @@ class ConnectViewController: UIViewController {
     @IBOutlet weak var nameLabel: UILabel!
     
     var db:DatabaseReference!
-    
+    var handle: DatabaseHandle?
+    var generatedCode : String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,6 +61,8 @@ class ConnectViewController: UIViewController {
 
     @IBAction func helpFriendClicked(_ sender: Any) {
       
+        var inputCode : String = ""
+        
         let alert = UIAlertController(title: "Enter code", message: "Enter a code to join a friend",preferredStyle: .alert)
         
         alert.addTextField { (textField) in
@@ -71,18 +74,45 @@ class ConnectViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Join", style: .default, handler: { [weak alert] (_) in
             let textField = alert?.textFields![0] // Force unwrapping because we know it exists.
             print("Text field: \(textField!.text)")
+            
+            inputCode = (textField?.text)!
         }))
+        
         
         self.present(alert, animated: true)
         
-    self.db.child("Quiz").child("quizId").child( "accessCodeToApply" ).child("hasGameStarted").setValue( true )
+        handle = db?.child("Access Code").child("749085775").child("areFriendsConnected").observe(.value, with: { (snapshot) in
+            
+//            print(snapshot)
+//            let checker:Bool!
+//            checker = snapshot.value as! Bool
+//            
+//            print("AFTER TRANSACTION")
+//            print(checker)
+//            
+//            if( checker ){
+//                
+//                self.db.child("Access Code").child("areFriendsConnected").setValue(true)
+//                
+//            }
+        })
+//        if(inputCode == generatedCode){
+//
+//            self.db.child("Access Code").child(String(generatedCode)).setValue(generatedCode)
+//            self.db.child("Access Code").child("areFriendsConnected").setValue(true)
+////            self.db.child("Quiz").child("quizId").child("areFriendsConnected").setValue( true )
+//        }
+//
     }
     
     func generateCode() -> String{
         let accessCode = arc4random()
         print("Access Code : ",accessCode)
         
-        self.db.child("Access Code").child(String(accessCode)).setValue(accessCode)
+        let data = ["Access Code": accessCode,"areFriendsConnected":true] as [String : Any]
+        
+        self.generatedCode = String(accessCode)
+        self.db.child("Access Code").child(String(accessCode)).setValue(data)
         return String(accessCode)
     }
     
