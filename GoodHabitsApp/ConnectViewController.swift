@@ -17,7 +17,9 @@ class ConnectViewController: UIViewController {
     var db:DatabaseReference!
     var handle: DatabaseHandle?
     var generatedCode : String = ""
-    var accessCode:String = ""
+   // var accessCode:String = ""
+    
+    let accessCode = arc4random()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,9 +53,23 @@ class ConnectViewController: UIViewController {
     
     @IBAction func askFriend(_ sender: Any) {
         
-        let alert = UIAlertController(title: "Wait for friend to join", message: generateCode(), preferredStyle: .alert)
+        let sharedPreferences = UserDefaults.standard
+        var name = sharedPreferences.string(forKey: "Name")
+       
         
-//        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: nil))
+        let alert = UIAlertController(title: "Wait for friend to join", message: generateCode(), preferredStyle: .alert)
+         self.db.child("Friends").child("Access Code").child(String(accessCode)).child("Name1").setValue(name)
+        
+        handle = db?.child("Friends").child("Access Code").child(String(accessCode)).child("areFriendsConnected").observe(.value, with: { (snapshot) in
+            
+            print("Snapshot: \(snapshot)")
+            
+            let checker:Bool!
+            checker = snapshot.value as! Bool
+            
+            print("Checker: \(checker!)")
+        })
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: nil))
 //        alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
         
         self.present(alert, animated: false)
@@ -82,25 +98,44 @@ class ConnectViewController: UIViewController {
         
         self.present(alert, animated: true)
         
-        handle = db?.child("Friends").child("Access Code").child("4083221752").child("areFriendsConnected").observe(.value, with: { (snapshot) in
-            
+//        handle = db?.child("Friends").child("Access Code").child(String(accessCode)).child("areFriendsConnected").observe(.value, with: { (snapshot) in
+        
+    
+            handle = db?.child("Friends").child("Access Code").observe(.value, with: { (snapshot) in
             print("Snapshot: \(snapshot)")
             
 //            if let value = snapshot.value as? String{
 //                print("Value is: \(value)")
 //            }
-            let checker:Bool!
-            checker = snapshot.value as! Bool
-            
-            print("AFTER TRANSACTION")
-            print(checker!)
-            
-            if( checker == false ){
-                
-                self.db.child("Friends").child("Access Code").child("4083221752").child("areFriendsConnected").setValue(true)
-                
-            }
-        })
+//            let checker:Bool!
+//            checker = snapshot.value as! Bool
+//
+//            print("AFTER TRANSACTION")
+//            print(checker!)
+//
+//            if( checker == false ){
+//
+//                self.db.child("Friends").child("Access Code").child("4083221752").child("areFriendsConnected").setValue(true)
+//
+//            }
+
+                if snapshot.exists()
+                    
+                {
+                    
+                    let user = snapshot.value as? NSDictionary
+                    print("USers: \(user)")
+                    let active = user?[String(self.accessCode)]
+//                    let activeUser = active?["areFriendsConnected"]
+                    
+                    print("Active users: \(active)")
+                    
+                    
+                    
+                }
+            })
+        
+       
 //        if(inputCode == generatedCode){
 //
 //            self.db.child("Access Code").child(String(generatedCode)).setValue(generatedCode)
@@ -111,10 +146,11 @@ class ConnectViewController: UIViewController {
     }
     
     func generateCode() -> String{
-        let accessCode = arc4random()
-        print("Access Code : ",accessCode)
         
-        let data = ["Access Code": accessCode,"areFriendsConnected":false] as [String : Any]
+        print("Access Code : ",accessCode)
+        let friendsConnected : Bool = false
+        
+        let data = ["Access Code" : accessCode,"areFriendsConnected" : true] as [String : Any]
         
         self.generatedCode = String(accessCode)
         self.db.child("Friends").child("Access Code").child(String(accessCode)).setValue(data)
