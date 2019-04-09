@@ -17,6 +17,7 @@ class ConnectViewController: UIViewController {
     var db:DatabaseReference!
     var handle: DatabaseHandle?
     var generatedCode : String = ""
+    var accessCode:String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,7 +56,7 @@ class ConnectViewController: UIViewController {
 //        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: nil))
 //        alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
         
-        self.present(alert, animated: true)
+        self.present(alert, animated: false)
     }
     
 
@@ -81,20 +82,24 @@ class ConnectViewController: UIViewController {
         
         self.present(alert, animated: true)
         
-        handle = db?.child("Access Code").child("749085775").child("areFriendsConnected").observe(.value, with: { (snapshot) in
+        handle = db?.child("Friends").child("Access Code").child("4083221752").child("areFriendsConnected").observe(.value, with: { (snapshot) in
             
-//            print(snapshot)
-//            let checker:Bool!
-//            checker = snapshot.value as! Bool
-//            
-//            print("AFTER TRANSACTION")
-//            print(checker)
-//            
-//            if( checker ){
-//                
-//                self.db.child("Access Code").child("areFriendsConnected").setValue(true)
-//                
+            print("Snapshot: \(snapshot)")
+            
+//            if let value = snapshot.value as? String{
+//                print("Value is: \(value)")
 //            }
+            let checker:Bool!
+            checker = snapshot.value as! Bool
+            
+            print("AFTER TRANSACTION")
+            print(checker!)
+            
+            if( checker == false ){
+                
+                self.db.child("Friends").child("Access Code").child("4083221752").child("areFriendsConnected").setValue(true)
+                
+            }
         })
 //        if(inputCode == generatedCode){
 //
@@ -109,10 +114,10 @@ class ConnectViewController: UIViewController {
         let accessCode = arc4random()
         print("Access Code : ",accessCode)
         
-        let data = ["Access Code": accessCode,"areFriendsConnected":true] as [String : Any]
+        let data = ["Access Code": accessCode,"areFriendsConnected":false] as [String : Any]
         
         self.generatedCode = String(accessCode)
-        self.db.child("Access Code").child(String(accessCode)).setValue(data)
+        self.db.child("Friends").child("Access Code").child(String(accessCode)).setValue(data)
         return String(accessCode)
     }
     
