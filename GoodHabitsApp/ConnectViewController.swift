@@ -93,48 +93,71 @@ class ConnectViewController: UIViewController {
             print("Text field: \(textField!.text)")
             
             inputCode = (textField?.text)!
+            
         }))
         
         
         self.present(alert, animated: true)
         
 //        handle = db?.child("Friends").child("Access Code").child(String(accessCode)).child("areFriendsConnected").observe(.value, with: { (snapshot) in
-        
-    
-            handle = db?.child("Friends").child("Access Code").observe(.value, with: { (snapshot) in
-            print("Snapshot: \(snapshot)")
+        self.db.child("Friends").child("Access Code").observe(.childAdded, with: {
             
-//            if let value = snapshot.value as? String{
-//                print("Value is: \(value)")
-//            }
-//            let checker:Bool!
-//            checker = snapshot.value as! Bool
+            (snapshot) in
+            let a = snapshot.value as? NSDictionary
+            print("Snapshot : \(snapshot)")
+            print("InputCode : \(inputCode)")
+            print("a:\(a!["Access Code"] as? String)")
+            if a!["Access Code"] as? String == inputCode
+                
+            {
+                
+                let user = snapshot.value as? NSDictionary
+                print("USers: \(user)")
+                let active = user?[String(self.accessCode)]
+                //                    let activeUser = active?["areFriendsConnected"]
+                
+                print("Active users: \(active)")
+                
+                
+                
+            }
+            
+        })
+    
+//            handle = db?.child("Friends").child("Access Code").observe(.value, with: { (snapshot) in
+//            print("Snapshot: \(snapshot)")
 //
-//            print("AFTER TRANSACTION")
-//            print(checker!)
+////            if let value = snapshot.value as? String{
+////                print("Value is: \(value)")
+////            }
+////            let checker:Bool!
+////            checker = snapshot.value as! Bool
+////
+////            print("AFTER TRANSACTION")
+////            print(checker!)
+////
+////            if( checker == false ){
+////
+////                self.db.child("Friends").child("Access Code").child("4083221752").child("areFriendsConnected").setValue(true)
+////
+////            }
 //
-//            if( checker == false ){
+//                if snapshot.exists()
 //
-//                self.db.child("Friends").child("Access Code").child("4083221752").child("areFriendsConnected").setValue(true)
+//                {
 //
-//            }
-
-                if snapshot.exists()
-                    
-                {
-                    
-                    let user = snapshot.value as? NSDictionary
-                    print("USers: \(user)")
-                    let active = user?[String(self.accessCode)]
-//                    let activeUser = active?["areFriendsConnected"]
-                    
-                    print("Active users: \(active)")
-                    
-                    
-                    
-                }
-            })
-        
+//                    let user = snapshot.value as? NSDictionary
+//                    print("USers: \(user)")
+//                    let active = user?[String(self.accessCode)]
+////                    let activeUser = active?["areFriendsConnected"]
+//
+//                    print("Active users: \(active)")
+//
+//
+//
+//                }
+//            })
+//
        
 //        if(inputCode == generatedCode){
 //
