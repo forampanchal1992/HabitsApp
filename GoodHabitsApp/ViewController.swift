@@ -18,6 +18,7 @@ class ViewController: UIViewController {
     
     //Variables
     var inputNameText : String = ""
+    let accessCode = arc4random()
    
     var db:DatabaseReference!
     override func viewDidLoad() {
@@ -31,12 +32,18 @@ class ViewController: UIViewController {
     @IBAction func NextButtonClicked(_ sender: Any) {
         self.inputNameText = inputName.text!
         
+        print("Access Code : ",accessCode)
+        
+        let data = ["Access Code" : accessCode,"Name" : inputNameText,"areFriendsConnected" : false] as [String : Any]
+//        self.db.child("Friends").child("Access Code").child(String(accessCode)).setValue(data)
+        self.db.child("Friends").child(String(inputNameText)).setValue(data)
         let sharedPreferences = UserDefaults.standard
         sharedPreferences.set(self.inputNameText, forKey:"Name")
-        //print("Saved \(self.inputNameText) to shared preferences!")
+        sharedPreferences.set(self.accessCode, forKey: "Access Code")
+        print("Saved \(self.inputNameText) and \(self.accessCode) to shared preferences!")
         
     }
 
-   
+    
 }
 

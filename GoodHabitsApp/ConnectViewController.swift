@@ -13,12 +13,15 @@ import Firebase
 class ConnectViewController: UIViewController {
 
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var accessCodeLabel: UILabel!
     
     var db:DatabaseReference!
     var handle: DatabaseHandle?
     var generatedCode : String = ""
    // var accessCode:String = ""
     
+    var name : String = ""
+    var code : String = ""
     let accessCode = arc4random()
     
     override func viewDidLoad() {
@@ -27,16 +30,17 @@ class ConnectViewController: UIViewController {
         self.db = Database.database().reference()
         
         let sharedPreferences = UserDefaults.standard
-        var name = sharedPreferences.string(forKey: "Name")
+        self.name = sharedPreferences.string(forKey: "Name")!
+        self.code = sharedPreferences.string(forKey: "Access Code")!
         
         if (name == nil) {
-            // by default, the strating city is Vancouver
             name = "Name"
             print("Enter your name")
         }
         else {
-            print("Name: \(name)")
-            nameLabel.text = "Hello \(name!)"
+            print("Name: \(name) And Code: \(code)")
+            nameLabel.text = "Hello \(name)"
+            accessCodeLabel.text = "Access Code : \(code)"
         }
     }
     
@@ -53,21 +57,22 @@ class ConnectViewController: UIViewController {
     
     @IBAction func askFriend(_ sender: Any) {
         
-        let sharedPreferences = UserDefaults.standard
-        var name = sharedPreferences.string(forKey: "Name")
-       
-        
-        let alert = UIAlertController(title: "Wait for friend to join", message: generateCode(), preferredStyle: .alert)
+        let alert = UIAlertController(title: "Wait for friend to join", message: "generateCode()", preferredStyle: .alert)
          self.db.child("Friends").child("Access Code").child(String(accessCode)).child("Name1").setValue(name)
         
         handle = db?.child("Friends").child("Access Code").child(String(accessCode)).child("areFriendsConnected").observe(.value, with: { (snapshot) in
             
-            print("Snapshot: \(snapshot)")
+//            print("Snapshot: \(snapshot)")
             
             let checker:Bool!
             checker = snapshot.value as! Bool
             
             print("Checker: \(checker!)")
+            
+            if (checker == true)
+            {
+                // navigate to next page
+            }
         })
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: nil))
 //        alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
@@ -80,104 +85,41 @@ class ConnectViewController: UIViewController {
       
         var inputCode : String = ""
         
-        let alert = UIAlertController(title: "Enter code", message: "Enter a code to join a friend",preferredStyle: .alert)
+        let alert = UIAlertController(title: "Join a Friend", message: "Enter Friend's name and code",preferredStyle: .alert)
         
         alert.addTextField { (textField) in
             textField.text = ""
-            textField.placeholder = "Enter code here"
+            textField.placeholder = "Enter name here"
         }
         
-        // 3. Grab the value from the text field, and print it when the user clicks OK.
         alert.addAction(UIAlertAction(title: "Join", style: .default, handler: { [weak alert] (_) in
             let textField = alert?.textFields![0] // Force unwrapping because we know it exists.
             print("Text field: \(textField!.text)")
-            
             inputCode = (textField?.text)!
+            
+            self.db?.child("Friends").child(String(inputCode)).observe(.value, with: { (snapshot) in
+                
+                print("=============\(snapshot)")
+                
+                let friends = snapshot.value as? NSDictionary
+                let newFriend = friends!["Name"] as? String
+                
+                if (newFriend == inputCode)
+                {
+                    
+                    self.db.child("Friends").child(self.name).child("areFriendsConnected").setValue(true)
+                    self.db.child("Friends").child(self.name).child("Connected with").setValue(inputCode)
+                    self.db.child("Friends").child(String(inputCode)).child("areFriendsConnected").setValue(true)
+                    self.db.child("Friends").child(String(inputCode)).child("Connected with").setValue(self.name)
+                }
+                
+            })
             
         }))
         
         
         self.present(alert, animated: true)
-        
-//        handle = db?.child("Friends").child("Access Code").child(String(accessCode)).child("areFriendsConnected").observe(.value, with: { (snapshot) in
-        self.db.child("Friends").child("Access Code").observe(.childAdded, with: {
-            
-            (snapshot) in
-            let a = snapshot.value as? NSDictionary
-            print("Snapshot : \(snapshot)")
-            print("InputCode : \(inputCode)")
-            print("a:\(a!["Access Code"] as? String)")
-            if a!["Access Code"] as? String == inputCode
-                
-            {
-                
-                let user = snapshot.value as? NSDictionary
-                print("USers: \(user)")
-                let active = user?[String(self.accessCode)]
-                //                    let activeUser = active?["areFriendsConnected"]
-                
-                print("Active users: \(active)")
-                
-                
-                
-            }
-            
-        })
-    
-//            handle = db?.child("Friends").child("Access Code").observe(.value, with: { (snapshot) in
-//            print("Snapshot: \(snapshot)")
-//
-////            if let value = snapshot.value as? String{
-////                print("Value is: \(value)")
-////            }
-////            let checker:Bool!
-////            checker = snapshot.value as! Bool
-////
-////            print("AFTER TRANSACTION")
-////            print(checker!)
-////
-////            if( checker == false ){
-////
-////                self.db.child("Friends").child("Access Code").child("4083221752").child("areFriendsConnected").setValue(true)
-////
-////            }
-//
-//                if snapshot.exists()
-//
-//                {
-//
-//                    let user = snapshot.value as? NSDictionary
-//                    print("USers: \(user)")
-//                    let active = user?[String(self.accessCode)]
-////                    let activeUser = active?["areFriendsConnected"]
-//
-//                    print("Active users: \(active)")
-//
-//
-//
-//                }
-//            })
-//
        
-//        if(inputCode == generatedCode){
-//
-//            self.db.child("Access Code").child(String(generatedCode)).setValue(generatedCode)
-//            self.db.child("Access Code").child("areFriendsConnected").setValue(true)
-////            self.db.child("Quiz").child("quizId").child("areFriendsConnected").setValue( true )
-//        }
-//
-    }
-    
-    func generateCode() -> String{
-        
-        print("Access Code : ",accessCode)
-        let friendsConnected : Bool = false
-        
-        let data = ["Access Code" : accessCode,"areFriendsConnected" : true] as [String : Any]
-        
-        self.generatedCode = String(accessCode)
-        self.db.child("Friends").child("Access Code").child(String(accessCode)).setValue(data)
-        return String(accessCode)
     }
     
 }
