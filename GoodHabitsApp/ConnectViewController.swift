@@ -90,7 +90,6 @@ class ConnectViewController: UIViewController {
                     let friendNotFoundAlert = UIAlertController(title: "No person found", message: "No person with id \(self.friendName)",preferredStyle: .alert)
                     friendNotFoundAlert.addAction(UIAlertAction(title: "Try again", style: .default, handler: nil))
                 }
-                
             })
         }))
         self.present(alert, animated: true)

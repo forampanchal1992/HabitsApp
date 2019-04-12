@@ -16,10 +16,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var askNameLabel: UILabel!
     @IBOutlet weak var inputName: UITextField!
     
-    //Variables
     var inputNameText : String = ""
-   
     var db:DatabaseReference!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.db = Database.database().reference()
