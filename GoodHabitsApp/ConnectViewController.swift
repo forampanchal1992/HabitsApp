@@ -76,19 +76,17 @@ class ConnectViewController: UIViewController {
                     let friends = snapshot.value as? NSDictionary
                     let newFriend = friends!["Name"] as? String
     
-                    if (newFriend == self.friendName)
-                    {
-                        self.db.child("Friends").child(self.name).child("areFriendsConnected").setValue(true)
-                        self.db.child("Friends").child(self.name).child("Connected with").setValue(self.friendName)
-                        self.db.child("Friends").child(String(self.friendName)).child("areFriendsConnected").setValue(true)
-                        self.db.child("Friends").child(String(self.friendName)).child("Connected with").setValue(self.name)
-                    }
+                    self.db.child("Friends").child(self.name).child("areFriendsConnected").setValue(true)
+                    self.db.child("Friends").child(self.name).child("Connected with").setValue(self.friendName)
+                self.db.child("Friends").child(String(self.friendName)).child("areFriendsConnected").setValue(true)
+                    self.db.child("Friends").child(String(self.friendName)).child("Connected with").setValue(self.name)
+
                 }
                 else
                 {
                     print("\(self.friendName) is not found")
-                    let friendNotFoundAlert = UIAlertController(title: "No person found", message: "No person with id \(self.friendName)",preferredStyle: .alert)
-                    friendNotFoundAlert.addAction(UIAlertAction(title: "Try again", style: .default, handler: nil))
+//                    let friendNotFoundAlert = UIAlertController(title: "No person found", message: "No person with id \(self.friendName)",preferredStyle: .alert)
+//                    friendNotFoundAlert.addAction(UIAlertAction(title: "Try again", style: .default, handler: nil))
                 }
             })
         }))
