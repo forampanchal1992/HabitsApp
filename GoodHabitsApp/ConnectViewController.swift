@@ -13,11 +13,11 @@ import Firebase
 class ConnectViewController: UIViewController {
 
     @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var accessCodeLabel: UILabel!
     
     var db:DatabaseReference!
     var handle: DatabaseHandle?
     var generatedCode : String = ""
+    var habitsSnapshot = [String:String]()
    // var accessCode:String = ""
     
     var name : String = ""
@@ -40,6 +40,8 @@ class ConnectViewController: UIViewController {
             print("Name: \(name) And Code: \(code)")
             nameLabel.text = "Hello \(name)"
         }
+        
+        getData()
     }
     
     /*
@@ -76,13 +78,11 @@ class ConnectViewController: UIViewController {
                     let friends = snapshot.value as? NSDictionary
                     let newFriend = friends!["Name"] as? String
     
-                    if (newFriend == self.friendName)
-                    {
-                        self.db.child("Friends").child(self.name).child("areFriendsConnected").setValue(true)
-                        self.db.child("Friends").child(self.name).child("Connected with").setValue(self.friendName)
-                        self.db.child("Friends").child(String(self.friendName)).child("areFriendsConnected").setValue(true)
-                        self.db.child("Friends").child(String(self.friendName)).child("Connected with").setValue(self.name)
-                    }
+                    self.db.child("Friends").child(self.name).child("areFriendsConnected").setValue(true)
+                    self.db.child("Friends").child(self.name).child("Connected with").setValue(self.friendName)
+                    self.db.child("Friends").child(String(self.friendName)).child("areFriendsConnected").setValue(true)
+                    self.db.child("Friends").child(String(self.friendName)).child("Connected with").setValue(self.name)
+                    
                 }
                 else
                 {
@@ -94,4 +94,71 @@ class ConnectViewController: UIViewController {
         }))
         self.present(alert, animated: true)
     }
+    
+    func getData(){
+        self.db?.child("Habits").observe(.value, with: { (snapshot) in
+            
+            print("Habits are: \(snapshot)")
+            let friends = snapshot.value as? NSDictionary
+            let newFriend = friends!["Name"] as? String
+            print("====Habits Snapshot====: \(newFriend)")
+           
+            
+            
+            if(snapshot.exists())
+            {
+                print(snapshot.childrenCount)
+
+//                for (key, value1) in snapshot{
+//
+//                    // print(value1["depatureCity"])
+//                    self.toData.append(value1["depatureCity"].string!)
+//                    self.arrivalData.append(value1["arrivalCity"].string!)
+//
+//                }
+                
+            }
+        
+        })
+    }
+    
+//    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+//        return 1
+//    }
+//
+//    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+//        if currentTextField == toTextField{
+//            return toData.count
+//        }
+//        else if currentTextField == arrivalTextField{
+//            return arrivalData.count
+//        }
+//        else{
+//            return 0
+//        }
+//    }
+//
+//    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+//        //return toTextField.text = data[row]
+//        if currentTextField == toTextField{
+//            toTextField.text = toData[row]
+//            self.view.endEditing(true)
+//        }
+//        else if currentTextField == arrivalTextField{
+//            arrivalTextField.text = arrivalData[row]
+//            self.view.endEditing(true)
+//        }
+//    }
+//
+//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+//        if currentTextField == toTextField{
+//            return toData[row]
+//        }
+//        else if currentTextField == arrivalTextField{
+//            return arrivalData[row]
+//        }
+//        else{
+//            return ""
+//        }
+//    }
 }
