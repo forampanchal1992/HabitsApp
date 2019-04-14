@@ -108,14 +108,6 @@ class ConnectViewController: UIViewController {
             if(snapshot.exists())
             {
                 print(snapshot.childrenCount)
-
-//                for (key, value1) in snapshot{
-//
-//                    // print(value1["depatureCity"])
-//                    self.toData.append(value1["depatureCity"].string!)
-//                    self.arrivalData.append(value1["arrivalCity"].string!)
-//
-//                }
                 
             }
         

@@ -70,19 +70,29 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y3g-GR-7qy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1718" y="-622"/>
+            <point key="canvasLocation" x="2817" y="892"/>
         </scene>
         <!--Item-->
         <scene sceneID="Geo-MH-fmF">
             <objects>
-                <viewController id="D4T-LM-qsV" sceneMemberID="viewController">
+                <viewController id="D4T-LM-qsV" customClass="CircularProgreeBarController" customModule="GoodHabitsApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Pfe-bR-xzp">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BgZ-bw-Doc">
+                                <rect key="frame" x="87" y="224" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="CnV-XM-4gl"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="f66-bZ-7zs"/>
+                    <connections>
+                        <outlet property="progressBar" destination="Pfe-bR-xzp" id="7ZR-HN-CUR"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wQm-0g-YYF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
