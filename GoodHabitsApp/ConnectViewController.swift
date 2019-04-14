@@ -11,14 +11,15 @@ import FirebaseDatabase
 import Firebase
 
 class ConnectViewController: UIViewController {
-
+    
     @IBOutlet weak var nameLabel: UILabel!
     
     var db:DatabaseReference!
     var handle: DatabaseHandle?
     var generatedCode : String = ""
     var habitsSnapshot = [String:String]()
-   // var accessCode:String = ""
+    var habits : [String] = []
+    // var accessCode:String = ""
     
     var name : String = ""
     var code : String = ""
@@ -26,7 +27,7 @@ class ConnectViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.db = Database.database().reference()
         
         let sharedPreferences = UserDefaults.standard
@@ -45,17 +46,17 @@ class ConnectViewController: UIViewController {
     }
     
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
     
     @IBAction func helpFriendClicked(_ sender: Any) {
-      
+        
         let alert = UIAlertController(title: "Join a Friend", message: "Enter Friend's name and code",preferredStyle: .alert)
         
         alert.addTextField { (friendToConnect) in
@@ -75,23 +76,92 @@ class ConnectViewController: UIViewController {
                 if(snapshot.exists())
                 {
                     print("\(self.friendName) found")
-                    let friends = snapshot.value as? NSDictionary
-                    let newFriend = friends!["Name"] as? String
-    
+                    //                    let friends = snapshot.value as? NSDictionary
+                    //                    let newFriend = friends!["Name"] as? String
+                    
                     self.db.child("Friends").child(self.name).child("areFriendsConnected").setValue(true)
                     self.db.child("Friends").child(self.name).child("Connected with").setValue(self.friendName)
+                    
                 self.db.child("Friends").child(String(self.friendName)).child("areFriendsConnected").setValue(true)
                     self.db.child("Friends").child(String(self.friendName)).child("Connected with").setValue(self.name)
+                    
+                    
+                self.db.child("Friends").child(String(self.friendName)).child("areFriendsConnected").setValue(true)
+                    self.db.child("Friends").child(String(self.friendName)).child("Connected with").setValue(self.name)
+                    
                     
                 }
                 else
                 {
                     print("\(self.friendName) is not found")
-//                    let friendNotFoundAlert = UIAlertController(title: "No person found", message: "No person with id \(self.friendName)",preferredStyle: .alert)
-//                    friendNotFoundAlert.addAction(UIAlertAction(title: "Try again", style: .default, handler: nil))
+                    //                    let friendNotFoundAlert = UIAlertController(title: "No person found", message: "No person with id \(self.friendName)",preferredStyle: .alert)
+                    //                    friendNotFoundAlert.addAction(UIAlertAction(title: "Try again", style: .default, handler: nil))
                 }
             })
         }))
         self.present(alert, animated: true)
     }
+    
+    func getData(){
+        self.db?.child("Habits").observe(.value, with: { (snapshot) in
+            
+            print("Habits are: \(snapshot)")
+            let friends = snapshot.value as? NSDictionary
+            
+            for (key, value) in friends!{
+                print("Key : \(key) and Value: \(value)")
+                let valueOfKey = key as! String
+                self.habits.append(valueOfKey)
+            }
+            
+            print("Habis from dictionary : \(self.habits)")
+            if(snapshot.exists())
+            {
+                print("\(snapshot.childrenCount) habis found.")
+                
+                
+            }
+            
+        })
+    }
+    
+    //    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+    //        return 1
+    //    }
+    //
+    //    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    //        if currentTextField == toTextField{
+    //            return toData.count
+    //        }
+    //        else if currentTextField == arrivalTextField{
+    //            return arrivalData.count
+    //        }
+    //        else{
+    //            return 0
+    //        }
+    //    }
+    //
+    //    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    //        //return toTextField.text = data[row]
+    //        if currentTextField == toTextField{
+    //            toTextField.text = toData[row]
+    //            self.view.endEditing(true)
+    //        }
+    //        else if currentTextField == arrivalTextField{
+    //            arrivalTextField.text = arrivalData[row]
+    //            self.view.endEditing(true)
+    //        }
+    //    }
+    //
+    //    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    //        if currentTextField == toTextField{
+    //            return toData[row]
+    //        }
+    //        else if currentTextField == arrivalTextField{
+    //            return arrivalData[row]
+    //        }
+    //        else{
+    //            return ""
+    //        }
+    //    }
 }
