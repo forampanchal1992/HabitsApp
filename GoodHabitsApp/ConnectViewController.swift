@@ -13,11 +13,11 @@ import Firebase
 class ConnectViewController: UIViewController {
 
     @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var accessCodeLabel: UILabel!
     
     var db:DatabaseReference!
     var handle: DatabaseHandle?
     var generatedCode : String = ""
+    var habitsSnapshot = [String:String]()
    // var accessCode:String = ""
     
     var name : String = ""
@@ -40,6 +40,8 @@ class ConnectViewController: UIViewController {
             print("Name: \(name) And Code: \(code)")
             nameLabel.text = "Hello \(name)"
         }
+        
+        getData()
     }
     
     /*
@@ -80,7 +82,7 @@ class ConnectViewController: UIViewController {
                     self.db.child("Friends").child(self.name).child("Connected with").setValue(self.friendName)
                 self.db.child("Friends").child(String(self.friendName)).child("areFriendsConnected").setValue(true)
                     self.db.child("Friends").child(String(self.friendName)).child("Connected with").setValue(self.name)
-
+                    
                 }
                 else
                 {

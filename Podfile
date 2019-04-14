@@ -7,6 +7,7 @@ target 'GoodHabitsApp' do
 
   # Pods for GoodHabitsApp
 	pod 'Firebase/Core'
-	pod 'Firebase/Database'        
+	pod 'Firebase/Database' 
+	pod 'UICircularProgressRing'       
 
 end
