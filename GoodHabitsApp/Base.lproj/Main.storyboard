@@ -56,7 +56,7 @@
             </objects>
             <point key="canvasLocation" x="1216.8" y="108.39580209895054"/>
         </scene>
-        <!--Item-->
+        <!--Friend-->
         <scene sceneID="mis-p6-bdy">
             <objects>
                 <viewController id="UGQ-sc-F80" customClass="FriendViewController" customModule="GoodHabitsApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -64,7 +64,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gNd-WO-BC5">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gNd-WO-BC5">
                                 <rect key="frame" x="146" y="105" width="82" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -75,7 +75,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="toz-ic-hC2"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="oNG-Rp-Dm0"/>
+                    <tabBarItem key="tabBarItem" title="Friend" image="meeting" selectedImage="meeting" id="oNG-Rp-Dm0"/>
                     <connections>
                         <outlet property="friendNameLabel" destination="gNd-WO-BC5" id="eQW-hZ-Ooa"/>
                     </connections>
@@ -84,7 +84,7 @@
             </objects>
             <point key="canvasLocation" x="2816.8000000000002" y="891.90404797601207"/>
         </scene>
-        <!--Item-->
+        <!--Progress-->
         <scene sceneID="Geo-MH-fmF">
             <objects>
                 <viewController id="D4T-LM-qsV" customClass="CircularProgreeBarController" customModule="GoodHabitsApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -93,22 +93,53 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BgZ-bw-Doc">
-                                <rect key="frame" x="87" y="224" width="240" height="128"/>
+                                <rect key="frame" x="67" y="203" width="240" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8fu-Z2-kBb">
+                                <rect key="frame" x="16" y="111" width="343" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j0Y-2x-HSa">
+                                <rect key="frame" x="67" y="364" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jo6-8S-eo9">
+                                <rect key="frame" x="67" y="401" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A4z-je-tMF">
+                                <rect key="frame" x="67" y="448" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="CnV-XM-4gl"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="f66-bZ-7zs"/>
+                    <tabBarItem key="tabBarItem" title="Progress" image="Investment" selectedImage="Investment" id="f66-bZ-7zs"/>
                     <connections>
-                        <outlet property="progressBar" destination="Pfe-bR-xzp" id="7ZR-HN-CUR"/>
+                        <outlet property="nameLabel" destination="8fu-Z2-kBb" id="mIv-cp-rAU"/>
+                        <outlet property="subHabitOneLabel" destination="j0Y-2x-HSa" id="gtV-z4-T5N"/>
+                        <outlet property="subHabitThreeLabel" destination="A4z-je-tMF" id="aAX-ZN-7AA"/>
+                        <outlet property="subHabitTwoLabel" destination="jo6-8S-eo9" id="vos-tD-XCd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wQm-0g-YYF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2817" y="81"/>
+            <point key="canvasLocation" x="2816.8000000000002" y="80.50974512743629"/>
         </scene>
         <!--Back-->
         <scene sceneID="V6u-Qv-mf1">
@@ -155,7 +186,7 @@
                                     <segue destination="D4T-LM-qsV" kind="show" id="aQK-gH-gGq"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Hello" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F59-d6-PAG">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F59-d6-PAG">
                                 <rect key="frame" x="117" y="134" width="143" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -166,7 +197,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="13a-I9-OZw"/>
                     </view>
-                    <tabBarItem key="tabBarItem" id="ob8-d4-8Mx"/>
+                    <tabBarItem key="tabBarItem" title="Profile" image="happy" selectedImage="happy" id="ob8-d4-8Mx"/>
                     <navigationItem key="navigationItem" title="Back" id="xEX-Cb-smf">
                         <barButtonItem key="backBarButtonItem" title="back" id="H7z-FT-89z"/>
                     </navigationItem>
@@ -219,6 +250,11 @@
             <point key="canvasLocation" x="1985" y="157"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Investment" width="30" height="30"/>
+        <image name="happy" width="30" height="30"/>
+        <image name="meeting" width="30" height="30"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="aQK-gH-gGq"/>
     </inferredMetricsTieBreakers>

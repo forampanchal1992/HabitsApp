@@ -32,7 +32,6 @@ class ConnectViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     // var accessCode:String = ""
     
     var name : String = ""
-    var code : String = ""
     var friendName : String = ""
     
     override func viewDidLoad() {
@@ -48,7 +47,7 @@ class ConnectViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
             print("No name found")
         }
         else {
-            print("Name: \(name) And Code: \(code)")
+            print("Name: \(name)")
             nameLabel.text = "\(name)"
         }
         pickerView.delegate = self
@@ -106,6 +105,7 @@ class ConnectViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         var selectedHabit = toTextField.text
         var createdHabit = customeHabitTextField.text
         
+        var myHabit : String = ""
         print("Selected: \(selectedHabit!)")
         print("Created: \(createdHabit!)")
         
@@ -114,13 +114,19 @@ class ConnectViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
             if(selectedHabit != nil)
             {
                 print("Selected habit is: \(selectedHabit!)")
-                self.db.child("Friends").child(String(name)).child("Habit").setValue(selectedHabit!)
+            self.db.child("Friends").child(String(name)).child("Habit").setValue(selectedHabit!)
+                myHabit = selectedHabit!
+                
             }
             else if(createdHabit != nil)
             {
                 print("Created habit is: \(createdHabit!)")
-                self.db.child("Friends").child(String(name)).child("Habit").setValue(createdHabit!)
+            self.db.child("Friends").child(String(name)).child("Habit").setValue(createdHabit!)
+                myHabit = createdHabit!
             }
+            
+            let sharedPreferences = UserDefaults.standard
+            sharedPreferences.set(myHabit, forKey:"Habit")
         }
     }
     
