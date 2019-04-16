@@ -12,6 +12,7 @@ import Firebase
 
 class FriendViewController: UIViewController {
 
+    @IBOutlet weak var FriendCircularProgress: FriendProgressBarView!
     var db:DatabaseReference!
     var name : String = ""
     var friendName : String = ""
@@ -43,6 +44,38 @@ class FriendViewController: UIViewController {
 //                print("Friend is --> \(friend as! String)")
             }
         })
+        let cp = CircularProgressBarView(frame : CGRect(x: 10.0, y: 10.0, width: 100.0, height: 100.0))
+        
+        cp.trackColor = UIColor.red
+        
+        cp.progressColor = UIColor.yellow
+        
+        cp.tag = 101
+        
+        self.view.addSubview(cp)
+        
+        cp.center = self.view.center
+        
+        
+        
+        self.perform(#selector(animateProgress), with: nil, afterDelay: 2.0)
+        
+        FriendCircularProgress.trackColor = UIColor.white
+        
+        FriendCircularProgress.progressColor = UIColor.purple
+        
+        FriendCircularProgress.setProgressWithAnimation(duration: 1.0, value: 0.3)
+        
+    }
+    
+    
+    
+    @objc func animateProgress(){
+        
+        let cP = self.view.viewWithTag(101) as! CircularProgressBarView
+        
+        cP.setProgressWithAnimation(duration: 1.0, value: 0.7)
+        
     }
     
     func connectFriend() {

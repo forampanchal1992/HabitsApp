@@ -16,6 +16,7 @@
 		25133A91225A638D006CED48 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 25133A8F225A638D006CED48 /* LaunchScreen.storyboard */; };
 		255D0EF6225A86FB0055FA6E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 255D0EF5225A86FB0055FA6E /* GoogleService-Info.plist */; };
 		25A17C5D225AA4D400B679D4 /* ConnectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A17C5C225AA4D400B679D4 /* ConnectViewController.swift */; };
+		25F4675722657F7900231F1E /* FriendProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F4675622657F7900231F1E /* FriendProgressBarView.swift */; };
 		7B93E285AAF24A105BDD80ED /* Pods_GoodHabitsApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE60D1772D4EBAB2E42AAEA1 /* Pods_GoodHabitsApp.framework */; };
 		ECC4362C2263D305003241C7 /* FriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC4362B2263D305003241C7 /* FriendViewController.swift */; };
 		ECC4362E2265594F003241C7 /* CircularProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC4362D2265594F003241C7 /* CircularProgressBarView.swift */; };
@@ -34,6 +35,7 @@
 		25133A92225A638D006CED48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		255D0EF5225A86FB0055FA6E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		25A17C5C225AA4D400B679D4 /* ConnectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectViewController.swift; sourceTree = "<group>"; };
+		25F4675622657F7900231F1E /* FriendProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendProgressBarView.swift; sourceTree = "<group>"; };
 		307A12C5A453DC69C6D469DF /* Pods-GoodHabitsApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoodHabitsApp.release.xcconfig"; path = "Target Support Files/Pods-GoodHabitsApp/Pods-GoodHabitsApp.release.xcconfig"; sourceTree = "<group>"; };
 		CE60D1772D4EBAB2E42AAEA1 /* Pods_GoodHabitsApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GoodHabitsApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECC4362B2263D305003241C7 /* FriendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendViewController.swift; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 				2506C58B2263B15800EB2137 /* CircularProgreeBarController.swift */,
 				ECC4362B2263D305003241C7 /* FriendViewController.swift */,
 				ECC4362D2265594F003241C7 /* CircularProgressBarView.swift */,
+				25F4675622657F7900231F1E /* FriendProgressBarView.swift */,
 			);
 			path = GoodHabitsApp;
 			sourceTree = "<group>";
@@ -234,6 +237,7 @@
 				ECC4362E2265594F003241C7 /* CircularProgressBarView.swift in Sources */,
 				ECC4362C2263D305003241C7 /* FriendViewController.swift in Sources */,
 				25133A86225A638B006CED48 /* ViewController.swift in Sources */,
+				25F4675722657F7900231F1E /* FriendProgressBarView.swift in Sources */,
 				25133A84225A638B006CED48 /* AppDelegate.swift in Sources */,
 				25133A8C225A638B006CED48 /* GoodHabitsApp.xcdatamodeld in Sources */,
 				25A17C5D225AA4D400B679D4 /* ConnectViewController.swift in Sources */,
