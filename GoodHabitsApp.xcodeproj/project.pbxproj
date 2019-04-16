@@ -18,6 +18,7 @@
 		25A17C5D225AA4D400B679D4 /* ConnectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A17C5C225AA4D400B679D4 /* ConnectViewController.swift */; };
 		7B93E285AAF24A105BDD80ED /* Pods_GoodHabitsApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE60D1772D4EBAB2E42AAEA1 /* Pods_GoodHabitsApp.framework */; };
 		ECC4362C2263D305003241C7 /* FriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC4362B2263D305003241C7 /* FriendViewController.swift */; };
+		ECC4362E2265594F003241C7 /* CircularProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC4362D2265594F003241C7 /* CircularProgressBarView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		307A12C5A453DC69C6D469DF /* Pods-GoodHabitsApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoodHabitsApp.release.xcconfig"; path = "Target Support Files/Pods-GoodHabitsApp/Pods-GoodHabitsApp.release.xcconfig"; sourceTree = "<group>"; };
 		CE60D1772D4EBAB2E42AAEA1 /* Pods_GoodHabitsApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GoodHabitsApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECC4362B2263D305003241C7 /* FriendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendViewController.swift; sourceTree = "<group>"; };
+		ECC4362D2265594F003241C7 /* CircularProgressBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressBarView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +84,7 @@
 				25A17C5C225AA4D400B679D4 /* ConnectViewController.swift */,
 				2506C58B2263B15800EB2137 /* CircularProgreeBarController.swift */,
 				ECC4362B2263D305003241C7 /* FriendViewController.swift */,
+				ECC4362D2265594F003241C7 /* CircularProgressBarView.swift */,
 			);
 			path = GoodHabitsApp;
 			sourceTree = "<group>";
@@ -228,6 +231,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ECC4362E2265594F003241C7 /* CircularProgressBarView.swift in Sources */,
 				ECC4362C2263D305003241C7 /* FriendViewController.swift in Sources */,
 				25133A86225A638B006CED48 /* ViewController.swift in Sources */,
 				25133A84225A638B006CED48 /* AppDelegate.swift in Sources */,

@@ -88,11 +88,11 @@
         <scene sceneID="Geo-MH-fmF">
             <objects>
                 <viewController id="D4T-LM-qsV" customClass="CircularProgreeBarController" customModule="GoodHabitsApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Pfe-bR-xzp">
+                    <view key="view" contentMode="scaleToFill" id="Pfe-bR-xzp" customClass="CircularProgressBarView">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BgZ-bw-Doc">
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BgZ-bw-Doc" customClass="CircularProgressBarView" customModule="GoodHabitsApp" customModuleProvider="target">
                                 <rect key="frame" x="67" y="203" width="240" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -131,6 +131,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Progress" image="Investment" selectedImage="Investment" id="f66-bZ-7zs"/>
                     <connections>
+                        <outlet property="CircularProgress" destination="BgZ-bw-Doc" id="9zW-fC-WDg"/>
                         <outlet property="nameLabel" destination="8fu-Z2-kBb" id="mIv-cp-rAU"/>
                         <outlet property="subHabitOneLabel" destination="j0Y-2x-HSa" id="gtV-z4-T5N"/>
                         <outlet property="subHabitThreeLabel" destination="A4z-je-tMF" id="aAX-ZN-7AA"/>
