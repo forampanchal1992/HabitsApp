@@ -11,12 +11,20 @@ import FirebaseDatabase
 import Firebase
 
 class FriendViewController: UIViewController {
+    
 
+    @IBOutlet weak var subHabitFriendOneLabel: UILabel!
+    @IBOutlet weak var subHabitFriendTwoLabel: UILabel!
+    @IBOutlet weak var subHabitFriendThreeLabel: UILabel!
+    
     @IBOutlet weak var FriendCircularProgress: FriendProgressBarView!
+    
     var db:DatabaseReference!
     var name : String = ""
     var friendName : String = ""
     @IBOutlet weak var friendNameLabel: UILabel!
+    
+     var subHabitsArray : [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
