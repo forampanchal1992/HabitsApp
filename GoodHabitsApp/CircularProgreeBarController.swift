@@ -26,6 +26,8 @@ class CircularProgreeBarController: UIViewController {
     var name : String = ""
     var subHabitsArray : [String] = []
     
+    var progress = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.db = Database.database().reference()
@@ -45,14 +47,15 @@ class CircularProgreeBarController: UIViewController {
             getHabitData()
         }
         
-        let cp = CircularProgressBarView(frame : CGRect(x: 10.0, y: 10.0, width: 100.0, height: 100.0))
-        cp.trackColor = UIColor.red
-        cp.progressColor = UIColor.yellow
-        cp.tag = 101
-        self.view.addSubview(cp)
-        cp.center = self.view.center
-        
-        self.perform(#selector(animateProgress), with: nil, afterDelay: 2.0)
+//        let cp = CircularProgressBarView(frame : CGRect(x: 10.0, y: 10.0, width: 100.0, height: 100.0))
+//        cp.trackColor = UIColor.red
+//        cp.progressColor = UIColor.yellow
+//        cp.tag = 101
+//        self.view.addSubview(cp)
+//        cp.center = self.view.center
+//        
+//        self.perform(#selector(animateProgress), with: nil, afterDelay: 2.0)
+//        
         CircularProgress.trackColor = UIColor.white
         CircularProgress.progressColor = UIColor.purple
         CircularProgress.setProgressWithAnimation(duration: 1.0, value: 0.3)
@@ -62,7 +65,12 @@ class CircularProgreeBarController: UIViewController {
     @objc func animateProgress(){
         
         let cP = self.view.viewWithTag(101) as! CircularProgressBarView
-        cP.setProgressWithAnimation(duration: 1.0, value: 0.7)
+        
+        if (progress == 0)
+        {
+            cP.setProgressWithAnimation(duration: 3.0, value: 0.9)
+        }
+        
         
     }
     

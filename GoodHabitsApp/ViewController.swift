@@ -17,13 +17,24 @@ class ViewController: UIViewController {
     @IBOutlet weak var inputName: UITextField!
     
     var inputNameText : String = ""
+    var name : String = ""
     var db:DatabaseReference!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.db = Database.database().reference()
-//        let habits = ["Lose Weight", "Quit Smoking"] as [String]
-//        self.db.child("Habits").setValue(habits)
+        
+        let sharedPreferences = UserDefaults.standard
+        self.name = sharedPreferences.string(forKey: "Name")!
+        
+        if (name == nil) {
+            name = "Name"
+            print("No name found")
+        }
+        else {
+            print("Name: \(name)")
+            inputName.text = "\(name)"
+        }
     }
     
     @IBAction func NextButtonClicked(_ sender: Any) {
