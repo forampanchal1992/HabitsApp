@@ -136,17 +136,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" alpha="0.75" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backgroundimg" translatesAutoresizingMaskIntoConstraints="NO" id="x0R-8s-WwH">
+                            <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backgroundimg" translatesAutoresizingMaskIntoConstraints="NO" id="x0R-8s-WwH">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="621"/>
                             </imageView>
                             <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BgZ-bw-Doc" customClass="CircularProgressBarView" customModule="GoodHabitsApp" customModuleProvider="target">
                                 <rect key="frame" x="98" y="142" width="189" height="200"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="DF4-LD-VVi">
-                                <rect key="frame" x="45" y="428" width="284" height="146"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8fu-Z2-kBb">
                                 <rect key="frame" x="16" y="49" width="343" height="21"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
@@ -161,7 +157,6 @@
                             <constraint firstItem="x0R-8s-WwH" firstAttribute="top" secondItem="Pfe-bR-xzp" secondAttribute="top" id="QIS-7q-7tJ"/>
                             <constraint firstItem="BgZ-bw-Doc" firstAttribute="leading" secondItem="CnV-XM-4gl" secondAttribute="leading" constant="98" id="YT0-Gd-Evz"/>
                             <constraint firstItem="CnV-XM-4gl" firstAttribute="trailing" secondItem="BgZ-bw-Doc" secondAttribute="trailing" constant="88" id="amd-Ty-xcl"/>
-                            <constraint firstItem="DF4-LD-VVi" firstAttribute="top" secondItem="BgZ-bw-Doc" secondAttribute="bottom" constant="86" id="o0k-ce-PEO"/>
                             <constraint firstItem="8fu-Z2-kBb" firstAttribute="top" secondItem="CnV-XM-4gl" secondAttribute="top" constant="29" id="o5B-zP-trX"/>
                             <constraint firstItem="BgZ-bw-Doc" firstAttribute="top" secondItem="8fu-Z2-kBb" secondAttribute="bottom" constant="57" id="pJj-er-1nV"/>
                             <constraint firstItem="CnV-XM-4gl" firstAttribute="trailing" secondItem="8fu-Z2-kBb" secondAttribute="trailing" constant="16" id="v5m-q1-bo8"/>

@@ -52,6 +52,22 @@ class CircularProgreeBarController: UIViewController {
         CircularProgress.progressColor = UIColor.purple
         CircularProgress.setProgressWithAnimation(duration: 1.0, value: 0.3)
         
+        var buttonY: CGFloat = 20  // our Starting Offset, could be 0
+        for villain in subHabit {
+            print("TEst button.....")
+            
+            
+            let villainButton = UIButton(frame: CGRect(x: 100, y: buttonY, width: 250, height: 30))
+            buttonY = buttonY + 250  // we are going to space these UIButtons 50px apart
+            
+            villainButton.layer.cornerRadius = 10  // get some fancy pantsy rounding
+            villainButton.backgroundColor = UIColor.darkGray
+            villainButton.setTitle("Button for Villain: \(villain)", for: UIControl.State.normal) // We are going to use the item name as the Button Title here.
+            villainButton.titleLabel?.text = "\(villain)"
+            villainButton.addTarget(self, action: "villainButtonPressed:", for: UIControl.Event.touchUpInside)
+            
+            self.view.addSubview(villainButton)  // myView in this case is the view you want these buttons added
+        }
     }
     
     @objc func animateProgress(){
