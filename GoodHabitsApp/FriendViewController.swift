@@ -111,6 +111,8 @@ class FriendViewController: UIViewController {
             })
         }))
         self.present(alert, animated: true)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        alert.addAction(cancelAction)
     }
 
 
