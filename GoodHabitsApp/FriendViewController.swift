@@ -21,6 +21,7 @@ class FriendViewController: UIViewController {
     
     var db:DatabaseReference!
     var name : String = ""
+    var friend : String = ""
     var friendName : String = ""
     @IBOutlet weak var friendNameLabel: UILabel!
     
@@ -30,36 +31,20 @@ class FriendViewController: UIViewController {
         super.viewDidLoad()
 
         self.db = Database.database().reference()
-        
+//        self.connectFriend()
         let sharedPreferences = UserDefaults.standard
         self.name = sharedPreferences.string(forKey: "Name")!
+        self.friend = sharedPreferences.string(forKey:"Friend")!
         
-        self.db?.child("Friends").child(String(name)).observe(.value, with:
-        {(snapshot) in
-//            print("ConnectedWith : \(snapshot)")
-            
-            if(snapshot.hasChild("connectedWith"))
-            {
-                print("Connected with \(snapshot)")
-                let friend = snapshot.value(forKey: "connectedWith")
-                print("Friend is --> \(friend as! String)")
-            }
-            else
-            {
-                print("Connecting........")
-                self.connectFriend()
-//                let friend = snapshot.value(forKey: "connectedWith")
-//                print("Friend is --> \(friend as! String)")
-            }
-        })
-//        let cp = CircularProgressBarView(frame : CGRect(x: 10.0, y: 10.0, width: 100.0, height: 100.0))
-//        cp.trackColor = UIColor.red
-//        cp.progressColor = UIColor.yellow
-//        cp.tag = 101
-//        self.view.addSubview(cp)
-//        cp.center = self.view.center
-//
-//        self.perform(#selector(animateProgress), with: nil, afterDelay: 2.0)
+        if (friend == nil) {
+            friend = "Name"
+            print("No name found")
+            self.connectFriend()
+        }
+        else {
+            print("Friend: \(self.friend)")
+            friendNameLabel.text = "\(self.friend)"
+        }
         
         FriendCircularProgress.trackColor = UIColor.white
         FriendCircularProgress.progressColor = UIColor.purple
@@ -89,18 +74,20 @@ class FriendViewController: UIViewController {
             self.db?.child("Friends").child(String(self.friendName)).observe(.value, with: { (snapshot) in
                 
                 print("=============\(snapshot)")
-                self.friendNameLabel.text = self.friendName
+                
                 if(snapshot.exists())
                 {
+                    self.friendNameLabel.text = self.friendName
+                    let sharedPreferences = UserDefaults.standard
+                    sharedPreferences.set(self.friendName, forKey:"Friend")
+                    
                     print("\(self.friendName) found")
-                    //                    let friends = snapshot.value as? NSDictionary
-                    //                    let newFriend = friends!["Name"] as? String
                     
-                self.db.child("Friends").child(self.name).child("areFriendsConnected").setValue(true)
-                self.db.child("Friends").child(self.name).child("Connected with").setValue(self.friendName)
+                    self.db.child("Friends").child(self.name).child("areFriendsConnected").setValue(true)
+                    self.db.child("Friends").child(self.name).child("Connected with").setValue(self.friendName)
                     
-            self.db.child("Friends").child(String(self.friendName)).child("areFriendsConnected").setValue(true)
-                self.db.child("Friends").child(String(self.friendName)).child("Connected with").setValue(self.name)
+                self.db.child("Friends").child(String(self.friendName)).child("areFriendsConnected").setValue(true)
+                    self.db.child("Friends").child(String(self.friendName)).child("Connected with").setValue(self.name)
                     
                 }
                 else

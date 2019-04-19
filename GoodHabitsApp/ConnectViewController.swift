@@ -114,7 +114,7 @@ class ConnectViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
             if(selectedHabit != nil)
             {
                 print("Selected habit is: \(selectedHabit!)")
-            self.db.child("Friends").child(String(name)).child("Habit").setValue(selectedHabit!)
+                self.db.child("Friends").child(String(name)).child("Habit").setValue(selectedHabit!)
                 myHabit = selectedHabit!
                 
             }
