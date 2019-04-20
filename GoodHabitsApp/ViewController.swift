@@ -25,8 +25,8 @@ class ViewController: UIViewController {
         self.db = Database.database().reference()
         
         let sharedPreferences = UserDefaults.standard
-        self.name = sharedPreferences.string(forKey: "Name")!
-        
+        self.name = (sharedPreferences.string(forKey: "Name") ?? inputNameText)!
+
         if (name == nil) {
             name = "Name"
             print("No name found")

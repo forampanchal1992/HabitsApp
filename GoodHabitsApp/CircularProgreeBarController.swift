@@ -30,15 +30,31 @@ class CircularProgreeBarController: UIViewController {
     
     var buttonCount = 0
     var progress = 0
+    var from : Float = 0.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.db = Database.database().reference()
         
+        checkSharedPreferences()
+        progressBar()
+    }
+    
+    func progressBar() {
+        CircularProgress.trackColor = UIColor.white
+        CircularProgress.progressColor = UIColor.gray
+//        CircularProgress.setProgressWithAnimation(duration: 1.0, value: 0.0, from: from)
+        
+    }
+    
+    func checkSharedPreferences()
+    {
         let sharedPreferences = UserDefaults.standard
         self.habit = sharedPreferences.string(forKey: "Habit")!
         self.name = sharedPreferences.string(forKey: "Name")!
+        self.from = sharedPreferences.float(forKey: "From")
         
+        print("From value : \(self.from)")
         if (habit == nil || name == nil) {
             habit = "Habit"
             name = "Name"
@@ -49,22 +65,17 @@ class CircularProgreeBarController: UIViewController {
             nameLabel.text = "\(name) your habit is to \(habit)"
             getHabitData()
         }
-    
-        CircularProgress.trackColor = UIColor.white
-        CircularProgress.progressColor = UIColor.gray
-        CircularProgress.setProgressWithAnimation(duration: 1.0, value: 0.0)
     }
-    
-    @objc func animateProgress(){
-        
-        let cP = self.view.viewWithTag(101) as! CircularProgressBarView
-        
-        if (progress == 0)
-        {
-            cP.setProgressWithAnimation(duration: 3.0, value: 0.0)
-        }
-    }
-    
+//    @objc func animateProgress(){
+//
+//        let cP = self.view.viewWithTag(101) as! CircularProgressBarView
+//
+//        if (progress == 0)
+//        {
+//            cP.setProgressWithAnimation(duration: 3.0, value: 0.0, from: 0.0)
+//        }
+//    }
+//
     func nullToNil(value : Any?) -> Any? {
         if value is NSNull {
             return nil
@@ -134,24 +145,28 @@ class CircularProgreeBarController: UIViewController {
     
     @objc func scrollButtonAction(sender: UIButton) {
         print("\(sender.tag) is Selected")
+        sender.isEnabled = false
         buttonCount += 1
-        print("Button click count : \(buttonCount)")
-        
+//        print("Button click count : \(buttonCount)")
+    
         if (buttonCount == 1)
         {
-            CircularProgress.setProgressWithAnimation(duration: 1.0, value: 0.33)
+            CircularProgress.setProgressWithAnimation(duration: 1.0, value: 0.33, from: from)
             self.db.child("Friends").child(String(name)).child("Progress").setValue("33%")
+            from = from + 0.33
         }
         else if (buttonCount == 2)
         {
-            CircularProgress.setProgressWithAnimation(duration: 1.0, value: 0.66)
+            CircularProgress.setProgressWithAnimation(duration: 1.0, value: 0.66, from: from)
             self.db.child("Friends").child(String(name)).child("Progress").setValue("66%")
+            from = from + 0.66
         }
         else if(buttonCount == 3)
         {
-            CircularProgress.setProgressWithAnimation(duration: 1.0, value: 1.0)
+            CircularProgress.setProgressWithAnimation(duration: 1.0, value: 1.0, from: from)
             self.db.child("Friends").child(String(name)).child("Progress").setValue("Completed - 100%")
         }
-        
+        let sharedPreferences = UserDefaults.standard
+        sharedPreferences.set(self.from, forKey:"From")
     }
 }

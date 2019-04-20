@@ -34,29 +34,35 @@ class FriendViewController: UIViewController {
 //        self.connectFriend()
         let sharedPreferences = UserDefaults.standard
         self.name = sharedPreferences.string(forKey: "Name")!
-        self.friend = sharedPreferences.string(forKey:"Friend")!
-        
+        self.friend = (sharedPreferences.string(forKey:"Friend") ?? friend)!
+
         if (friend == nil) {
             friend = "Name"
             print("No name found")
             self.connectFriend()
         }
         else {
+            self.friend = sharedPreferences.string(forKey:"Friend")!
             print("Friend: \(self.friend)")
             friendNameLabel.text = "\(self.friend)"
         }
         
+       progressBar()
+        
+    }
+    
+    func progressBar()
+    {
         FriendCircularProgress.trackColor = UIColor.white
         FriendCircularProgress.progressColor = UIColor.gray
-        FriendCircularProgress.setProgressWithAnimation(duration: 1.0, value: 0.3)
-        
+//        FriendCircularProgress.setProgressWithAnimation(duration: 1.0, value: 0.0)
     }
 
-    @objc func animateProgress(){
-        let cP = self.view.viewWithTag(101) as! CircularProgressBarView
-        cP.setProgressWithAnimation(duration: 1.0, value: 0.7)
-        
-    }
+//    @objc func animateProgress(){
+//        let cP = self.view.viewWithTag(101) as! CircularProgressBarView
+//        cP.setProgressWithAnimation(duration: 1.0, value: 0.7, from: 0.0)
+//
+//    }
     
     func connectFriend() {
         let alert = UIAlertController(title: "Join a Friend", message: "Enter Friend's name",preferredStyle: .alert)
