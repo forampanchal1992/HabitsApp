@@ -70,8 +70,8 @@
                             <imageView userInteractionEnabled="NO" alpha="0.75" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backgroundimg" translatesAutoresizingMaskIntoConstraints="NO" id="tx1-ac-LCc">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gNd-WO-BC5">
-                                <rect key="frame" x="146" y="68" width="82" height="23"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gNd-WO-BC5">
+                                <rect key="frame" x="16" y="68" width="343" height="23"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="19"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -83,9 +83,9 @@
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="gNd-WO-BC5" firstAttribute="leading" secondItem="toz-ic-hC2" secondAttribute="leading" constant="146" id="5jU-aB-cQU"/>
+                            <constraint firstItem="gNd-WO-BC5" firstAttribute="leading" secondItem="toz-ic-hC2" secondAttribute="leading" constant="5" id="5jU-aB-cQU"/>
                             <constraint firstItem="gNd-WO-BC5" firstAttribute="top" secondItem="toz-ic-hC2" secondAttribute="top" constant="48" id="Lid-Yo-FR3"/>
-                            <constraint firstItem="toz-ic-hC2" firstAttribute="trailing" secondItem="gNd-WO-BC5" secondAttribute="trailing" constant="147" id="M72-We-DYP"/>
+                            <constraint firstItem="toz-ic-hC2" firstAttribute="trailing" secondItem="gNd-WO-BC5" secondAttribute="trailing" constant="5" id="M72-We-DYP"/>
                             <constraint firstItem="tx1-ac-LCc" firstAttribute="top" secondItem="xRG-VE-n3P" secondAttribute="top" id="TXx-o6-Zhl"/>
                             <constraint firstItem="tx1-ac-LCc" firstAttribute="leading" secondItem="toz-ic-hC2" secondAttribute="leading" id="WsN-zG-hSO"/>
                             <constraint firstItem="tx1-ac-LCc" firstAttribute="trailing" secondItem="toz-ic-hC2" secondAttribute="trailing" id="gaD-Tz-Q22"/>

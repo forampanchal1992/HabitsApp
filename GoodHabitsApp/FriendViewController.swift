@@ -23,6 +23,8 @@ class FriendViewController: UIViewController {
     var name : String = ""
     var friend : String = ""
     var friendName : String = ""
+    var from : Float = 0.0
+    var progress : String = ""
     @IBOutlet weak var friendNameLabel: UILabel!
     
      var subHabitsArray : [String] = []
@@ -31,31 +33,30 @@ class FriendViewController: UIViewController {
         super.viewDidLoad()
 
         self.db = Database.database().reference()
+        
 //        self.connectFriend()
         let sharedPreferences = UserDefaults.standard
         self.name = sharedPreferences.string(forKey: "Name")!
-        self.friend = (sharedPreferences.string(forKey:"Friend") ?? friend)!
-
-        if (friend == nil) {
-            friend = "Name"
-            print("No name found")
-            self.connectFriend()
-        }
-        else {
-            self.friend = sharedPreferences.string(forKey:"Friend")!
-            print("Friend: \(self.friend)")
-            friendNameLabel.text = "\(self.friend)"
-        }
-        
-       progressBar()
-        
+////        self.friend = (sharedPreferences.string(forKey:"Friend") ?? friend)!
+//
+//        if (friend == nil) {
+//            friend = "Name"
+//            print("No name found")
+//            self.connectFriend()
+//        }
+//        else {
+////            self.friend = sharedPreferences.string(forKey:"Friend")!
+//            print("Friend: \(self.friend)")
+//            friendNameLabel.text = "\(self.friend)"
+//        }
+        getFriendData()
     }
     
     func progressBar()
     {
         FriendCircularProgress.trackColor = UIColor.white
         FriendCircularProgress.progressColor = UIColor.gray
-//        FriendCircularProgress.setProgressWithAnimation(duration: 1.0, value: 0.0)
+        //        FriendCircularProgress.setProgressWithAnimation(duration: 1.0, value: 0.0, from: from)
     }
 
 //    @objc func animateProgress(){
@@ -91,21 +92,82 @@ class FriendViewController: UIViewController {
                     
                     self.db.child("Friends").child(self.name).child("areFriendsConnected").setValue(true)
                     self.db.child("Friends").child(self.name).child("Connected with").setValue(self.friendName)
-                    
                 self.db.child("Friends").child(String(self.friendName)).child("areFriendsConnected").setValue(true)
                     self.db.child("Friends").child(String(self.friendName)).child("Connected with").setValue(self.name)
+                
+                    self.progressBar()
                     
                 }
                 else
                 {
+                    self.friendNameLabel.text = "No friend Connected"
                     print("\(self.friendName) is not found")                    //                    let friendNotFoundAlert = UIAlertController(title: "No person found", message: "No person with id \(self.friendName)",preferredStyle: .alert)
                     //                    friendNotFoundAlert.addAction(UIAlertAction(title: "Try again", style: .default, handler: nil))
                 }
             })
         }))
         self.present(alert, animated: true)
+        
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
         alert.addAction(cancelAction)
+    }
+    
+    func getFriendData() {
+        
+        self.db?.child("Friends").child(String(name)).observe(.value, with: { (snapshot) in
+            
+            if (snapshot.exists())
+            {
+                let snap = snapshot.value as! NSDictionary
+                 if snapshot.hasChild("Connected with")
+                 {
+                    let connectedFriend = snap["Connected with"] as! String
+                    if (connectedFriend != nil)
+                    {
+                        self.db?.child("Friends").child(String(connectedFriend)).observe(.value, with: { (snapshot) in
+                            
+                            if (snapshot.exists())
+                            {
+                                print("^^^^^^^\(snapshot)")
+                                let friendSnap = snapshot.value as! NSDictionary
+                                let friendHabit = friendSnap["Habit"] as! String
+                                self.friendNameLabel.text = "\(connectedFriend)'s habit is: \(friendHabit)"
+                                
+                                if snapshot.hasChild("Progress")
+                                {
+                                    let friendProgress = friendSnap["Progress"] as! String
+                                    
+                                    if (friendProgress == "33%")
+                                    {
+                                        print("Progress: \(friendProgress)")
+                                        self.progressBar()
+                                        self.FriendCircularProgress.setProgressWithAnimation(duration: 1.0, value: 0.33, from: 0.0)
+                                    }
+                                    else if (friendProgress == "66%")
+                                    {
+                                        print("Progress: \(friendProgress)")
+                                        self.progressBar()
+                                        self.FriendCircularProgress.setProgressWithAnimation(duration: 1.0, value: 0.66, from: 0.33)
+                                    }
+                                    else if (friendProgress == "100%")
+                                    {
+                                        print("Progress: \(friendProgress)")
+                                        self.progressBar()
+                                        self.FriendCircularProgress.setProgressWithAnimation(duration: 1.0, value: 1.0, from: 0.66)
+                                        self.db?.child("Friends").child(String(self.name)).child("isFriendDone").setValue(true)
+                                    }
+                                }
+                            }
+                        })
+                    }
+                }
+              
+                else
+                {
+                    self.connectFriend()
+                }
+            }
+        })
     }
 
 

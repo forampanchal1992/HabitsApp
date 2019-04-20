@@ -35,6 +35,8 @@ class ViewController: UIViewController {
             print("Name: \(name)")
             inputName.text = "\(name)"
         }
+        
+        competition()
     }
     
     @IBAction func NextButtonClicked(_ sender: Any) {
@@ -45,6 +47,31 @@ class ViewController: UIViewController {
         let sharedPreferences = UserDefaults.standard
         sharedPreferences.set(self.inputNameText, forKey:"Name")
         print("Saved \(self.inputNameText) to shared preferences!")
+    }
+    
+    func competition()
+    {
+        self.db?.child("Friends").child(String(name)).observe(.value, with: { (snapshot) in
+            
+            if (snapshot.exists())
+            {
+                 let snap = snapshot.value as! NSDictionary
+                if snapshot.hasChild("isFriendDone")
+                {
+                    
+                    let isFriendDone = snap["isFriendDone"] as! Bool
+                    if (isFriendDone == true)
+                    {
+                        print("Friend is done")
+                        
+                        var alert = UIAlertController(title: "Friend is done", message: "Friend is done with all the tasks", preferredStyle: UIAlertController.Style.alert)
+                        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
+                        self.present(alert, animated: true, completion: nil)
+                    }
+                }
+               
+            }
+        })
     }
 
     

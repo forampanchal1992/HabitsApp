@@ -132,7 +132,7 @@ class CircularProgreeBarController: UIViewController {
                     let Button = UIButton()
                     Button.tag = count
                     Button.frame = CGRect(x: px+100, y: py+10, width: 100, height: 45)
-                    Button.backgroundColor = UIColor.black
+//                    Button.backgroundColor = UIColor.black
                     Button.setTitle("\(j) ", for: .normal)
                     Button.addTarget(self, action: #selector(scrollButtonAction), for: .touchUpInside)
                     mScrollView.addSubview(Button)
@@ -164,7 +164,7 @@ class CircularProgreeBarController: UIViewController {
         else if(buttonCount == 3)
         {
             CircularProgress.setProgressWithAnimation(duration: 1.0, value: 1.0, from: from)
-            self.db.child("Friends").child(String(name)).child("Progress").setValue("Completed - 100%")
+            self.db.child("Friends").child(String(name)).child("Progress").setValue("100%")
         }
         let sharedPreferences = UserDefaults.standard
         sharedPreferences.set(self.from, forKey:"From")
