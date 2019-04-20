@@ -51,7 +51,7 @@ class CircularProgreeBarController: UIViewController {
         }
     
         CircularProgress.trackColor = UIColor.white
-        CircularProgress.progressColor = UIColor.purple
+        CircularProgress.progressColor = UIColor.gray
         CircularProgress.setProgressWithAnimation(duration: 1.0, value: 0.0)
     }
     
@@ -140,7 +140,6 @@ class CircularProgreeBarController: UIViewController {
         if (buttonCount == 1)
         {
             CircularProgress.setProgressWithAnimation(duration: 1.0, value: 0.33)
-            
             self.db.child("Friends").child(String(name)).child("Progress").setValue("33%")
         }
         else if (buttonCount == 2)

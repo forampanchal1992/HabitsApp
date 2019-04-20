@@ -47,7 +47,7 @@ class FriendViewController: UIViewController {
         }
         
         FriendCircularProgress.trackColor = UIColor.white
-        FriendCircularProgress.progressColor = UIColor.purple
+        FriendCircularProgress.progressColor = UIColor.gray
         FriendCircularProgress.setProgressWithAnimation(duration: 1.0, value: 0.3)
         
     }
