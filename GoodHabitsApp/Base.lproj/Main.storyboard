@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wfZ-3i-FHQ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wfZ-3i-FHQ">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -121,27 +121,32 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BgZ-bw-Doc" customClass="CircularProgressBarView" customModule="GoodHabitsApp" customModuleProvider="target">
-                                <rect key="frame" x="98" y="142" width="189" height="200"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PYJ-ck-gCl">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="PYJ-ck-gCl">
                                 <rect key="frame" x="0.0" y="350" width="375" height="268"/>
                             </scrollView>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BgZ-bw-Doc" customClass="CircularProgressBarView" customModule="GoodHabitsApp" customModuleProvider="target">
+                                <rect key="frame" x="112" y="150" width="150" height="88"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="PYJ-ck-gCl" secondAttribute="bottom" constant="49" id="1qi-bj-b6g"/>
                             <constraint firstItem="x0R-8s-WwH" firstAttribute="trailing" secondItem="CnV-XM-4gl" secondAttribute="trailing" id="8Eh-Fn-3hR"/>
                             <constraint firstItem="PYJ-ck-gCl" firstAttribute="trailing" secondItem="CnV-XM-4gl" secondAttribute="trailing" id="Eaa-dJ-RHh"/>
                             <constraint firstItem="x0R-8s-WwH" firstAttribute="leading" secondItem="CnV-XM-4gl" secondAttribute="leading" id="G17-3H-GVI"/>
+                            <constraint firstItem="PYJ-ck-gCl" firstAttribute="top" secondItem="Pfe-bR-xzp" secondAttribute="top" constant="350" id="Ixh-xE-r51"/>
                             <constraint firstItem="BgZ-bw-Doc" firstAttribute="top" secondItem="8fu-Z2-kBb" secondAttribute="bottom" constant="72" id="K2C-cv-WUn"/>
                             <constraint firstItem="PYJ-ck-gCl" firstAttribute="leading" secondItem="CnV-XM-4gl" secondAttribute="leading" id="NcG-2m-vgy"/>
                             <constraint firstItem="x0R-8s-WwH" firstAttribute="top" secondItem="Pfe-bR-xzp" secondAttribute="top" id="QIS-7q-7tJ"/>
                             <constraint firstItem="PYJ-ck-gCl" firstAttribute="bottom" secondItem="CnV-XM-4gl" secondAttribute="bottom" id="QWb-W4-Nwx"/>
+                            <constraint firstItem="PYJ-ck-gCl" firstAttribute="centerX" secondItem="Pfe-bR-xzp" secondAttribute="centerX" id="T8y-6M-yvQ"/>
                             <constraint firstItem="PYJ-ck-gCl" firstAttribute="top" secondItem="BgZ-bw-Doc" secondAttribute="bottom" constant="8" id="UMs-ay-pMq"/>
-                            <constraint firstItem="BgZ-bw-Doc" firstAttribute="leading" secondItem="CnV-XM-4gl" secondAttribute="leading" constant="98" id="YT0-Gd-Evz"/>
+                            <constraint firstItem="BgZ-bw-Doc" firstAttribute="leading" secondItem="CnV-XM-4gl" secondAttribute="leading" constant="124" id="aAp-To-Qn7"/>
                             <constraint firstItem="CnV-XM-4gl" firstAttribute="trailing" secondItem="BgZ-bw-Doc" secondAttribute="trailing" constant="88" id="amd-Ty-xcl"/>
+                            <constraint firstItem="CnV-XM-4gl" firstAttribute="trailing" secondItem="BgZ-bw-Doc" secondAttribute="trailing" constant="101" id="fXV-cf-P3j"/>
                             <constraint firstItem="8fu-Z2-kBb" firstAttribute="top" secondItem="CnV-XM-4gl" secondAttribute="top" constant="29" id="o5B-zP-trX"/>
+                            <constraint firstItem="PYJ-ck-gCl" firstAttribute="top" secondItem="BgZ-bw-Doc" secondAttribute="bottom" constant="120" id="qyg-c0-PYf"/>
                             <constraint firstItem="CnV-XM-4gl" firstAttribute="trailing" secondItem="8fu-Z2-kBb" secondAttribute="trailing" constant="16" id="v5m-q1-bo8"/>
                             <constraint firstAttribute="bottom" secondItem="x0R-8s-WwH" secondAttribute="bottom" constant="46" id="wEi-5W-kaS"/>
                             <constraint firstItem="8fu-Z2-kBb" firstAttribute="leading" secondItem="CnV-XM-4gl" secondAttribute="leading" constant="16" id="y3i-ow-mI6"/>
