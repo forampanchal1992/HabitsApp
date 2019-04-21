@@ -23,7 +23,7 @@ class TabBarController: UITabBarController {
         super.viewDidAppear(animated)
         
         let sharedPreferences = UserDefaults.standard
-        self.friend = sharedPreferences.string(forKey:"Friend")!
+      self.friend = sharedPreferences.string(forKey:"Friend")!
         
         if (friend == nil) {
             friend = "Name"

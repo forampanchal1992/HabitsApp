@@ -129,15 +129,18 @@ class CircularProgreeBarController: UIViewController {
             {
                 for j in 0...numberOfButtons/2
                 {
+                    
                     count += 1
                     let Button = UIButton()
                     Button.tag = count
-                    Button.frame = CGRect(x: px+100, y: py+10, width: 100, height: 45)
-                    Button.backgroundColor = UIColor.blue
+                    Button.frame = CGRect(x: px+(Int(mScrollView.frame.width)/10 - 10), y: py+10, width: (Int(mScrollView.frame.width)/2 - (Int(mScrollView.frame.width)/10)), height: (Int(mScrollView.frame.width)/2 - (Int(mScrollView.frame.width)/10)))
+                    Button.backgroundColor = UIColor.lightGray
                     Button.setTitle("\(subHabit[j]) ", for: .normal)
                     Button.addTarget(self, action: #selector(scrollButtonAction), for: .touchUpInside)
                     mScrollView.addSubview(Button)
-                    px = px + Int(mScrollView.frame.width)/2 - 30
+                    px = px + Int(mScrollView.frame.width) - 200
+                    print("WIDTH.........\(mScrollView.frame.width)")
+                    print("px........\(px)")
                 }
             }
             else{
@@ -147,12 +150,13 @@ class CircularProgreeBarController: UIViewController {
                     count += 1
                     let Button = UIButton()
                     Button.tag = count
-                    Button.frame = CGRect(x: px+100, y: py+10, width: 100, height: 45)
-                    Button.backgroundColor = UIColor.black
+                    Button.frame = CGRect(x: px+(Int(mScrollView.frame.width)/10 - 10), y: py+10, width: (Int(mScrollView.frame.width)/2 - (Int(mScrollView.frame.width)/10)), height: (Int(mScrollView.frame.width)/2 - (Int(mScrollView.frame.width)/10)))
+                    Button.backgroundColor = UIColor.lightGray
                     Button.setTitle("\(subHabit[j])", for: .normal)
                     Button.addTarget(self, action: #selector(scrollButtonAction), for: .touchUpInside)
                     mScrollView.addSubview(Button)
-                    px = px + Int(mScrollView.frame.width)/2 - 30
+                    px = px + Int(mScrollView.frame.width) - 200
+                    print("Second WIDTH.........\(mScrollView.frame.width)")
                 }
             }
             py =  Int(mScrollView.frame.height)-250
