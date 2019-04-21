@@ -31,7 +31,8 @@ class FriendViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        tabBarItem.badgeValue = nil
+        
         self.db = Database.database().reference()
         
 //        self.connectFriend()
@@ -74,17 +75,14 @@ class FriendViewController: UIViewController {
         }
         
         alert.addAction(UIAlertAction(title: "Join", style: .default, handler: { [weak alert] (_) in
-            let friendToConnect = alert?.textFields![0] // Force unwrapping because we know it exists.
-            print("Text field: \(friendToConnect!.text)")
+            let friendToConnect = alert?.textFields![0]
             self.friendName = (friendToConnect?.text)!
             
             self.db?.child("Friends").child(String(self.friendName)).observe(.value, with: { (snapshot) in
-                
-                print("=============\(snapshot)")
-                
                 if(snapshot.exists())
                 {
                     self.friendNameLabel.text = self.friendName
+                    
                     let sharedPreferences = UserDefaults.standard
                     sharedPreferences.set(self.friendName, forKey:"Friend")
                     
@@ -169,6 +167,4 @@ class FriendViewController: UIViewController {
             }
         })
     }
-
-
 }

@@ -94,7 +94,6 @@ class CircularProgreeBarController: UIViewController {
             if(snapshot.exists())
             {
                 print("\(snapshot.childrenCount) habis found.")
-                
                 for key in subHabits!
                 {
                     let sub = self.nullToNil(value: key)
@@ -120,25 +119,43 @@ class CircularProgreeBarController: UIViewController {
         var count = 0
         var px = 0
         var py = 0
+        let numberOfRows = subHabit.count / 2
+        let numberOfButtons = subHabit.count
         
-        for _ in 1...subHabit.count
+        for _ in 1...numberOfRows
         {
-//            print("$$$$$")
-            for j in subHabit
+            px = 0
+            if(count < numberOfButtons/2)
             {
-                if(count < subHabit.count)
+                for j in 0...numberOfButtons/2
                 {
                     count += 1
                     let Button = UIButton()
                     Button.tag = count
                     Button.frame = CGRect(x: px+100, y: py+10, width: 100, height: 45)
                     Button.backgroundColor = UIColor.blue
-                    Button.setTitle("\(j) ", for: .normal)
+                    Button.setTitle("\(subHabit[j]) ", for: .normal)
                     Button.addTarget(self, action: #selector(scrollButtonAction), for: .touchUpInside)
                     mScrollView.addSubview(Button)
                     px = px + Int(mScrollView.frame.width)/2 - 30
                 }
             }
+            else{
+
+                 for j in numberOfButtons/2...numberOfButtons-1
+                 {
+                    count += 1
+                    let Button = UIButton()
+                    Button.tag = count
+                    Button.frame = CGRect(x: px+100, y: py+10, width: 100, height: 45)
+                    Button.backgroundColor = UIColor.black
+                    Button.setTitle("\(subHabit[j])", for: .normal)
+                    Button.addTarget(self, action: #selector(scrollButtonAction), for: .touchUpInside)
+                    mScrollView.addSubview(Button)
+                    px = px + Int(mScrollView.frame.width)/2 - 30
+                }
+            }
+            py =  Int(mScrollView.frame.height)-250
         }
          mScrollView.contentSize = CGSize(width: px, height: py)
     }
@@ -146,22 +163,30 @@ class CircularProgreeBarController: UIViewController {
     @objc func scrollButtonAction(sender: UIButton) {
         print("\(sender.tag) is Selected")
         sender.isEnabled = false
+        print(sender.currentTitle!)
+    self.db.child("Friends").child(String(name)).child("HabitsDone").child("Habit-\(sender.tag)").setValue(sender.currentTitle)
         buttonCount += 1
 //        print("Button click count : \(buttonCount)")
     
         if (buttonCount == 1)
         {
-            CircularProgress.setProgressWithAnimation(duration: 1.0, value: 0.33, from: from)
-            self.db.child("Friends").child(String(name)).child("Progress").setValue("33%")
-            from = from + 0.33
+            CircularProgress.setProgressWithAnimation(duration: 1.0, value: 0.25, from: from)
+            self.db.child("Friends").child(String(name)).child("Progress").setValue("25%")
+            from = from + 0.25
         }
         else if (buttonCount == 2)
         {
-            CircularProgress.setProgressWithAnimation(duration: 1.0, value: 0.66, from: from)
-            self.db.child("Friends").child(String(name)).child("Progress").setValue("66%")
-            from = from + 0.66
+            CircularProgress.setProgressWithAnimation(duration: 1.0, value: 0.50, from: from)
+            self.db.child("Friends").child(String(name)).child("Progress").setValue("50%")
+            from = from + 0.50
         }
         else if(buttonCount == 3)
+        {
+            CircularProgress.setProgressWithAnimation(duration: 1.0, value: 0.75, from: from)
+            self.db.child("Friends").child(String(name)).child("Progress").setValue("75%")
+            from = from + 0.75
+        }
+        else if(buttonCount == 4)
         {
             CircularProgress.setProgressWithAnimation(duration: 1.0, value: 1.0, from: from)
             self.db.child("Friends").child(String(name)).child("Progress").setValue("100%")

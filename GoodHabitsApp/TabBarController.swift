@@ -7,24 +7,60 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseDatabase
 
 class TabBarController: UITabBarController {
 
+    var db:DatabaseReference!
+    var friend : String = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.db = Database.database().reference()
         // Do any additional setup after loading the view.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        let sharedPreferences = UserDefaults.standard
+        self.friend = sharedPreferences.string(forKey:"Friend")!
+        
+        if (friend == nil) {
+            friend = "Name"
+            print("No name found")
+        }
+        else
+        {
+            print("friend +++++ \(friend)")
+//            self.tabBar.items![4].badgeValue = "1"
+            checkProgressDone()
+        } 
     }
-    */
+    
+    func checkProgressDone()
+    {
+        self.db?.child("Friends").child(String(friend)).observe(.value, with: { (snapshot) in
+            
+            if (snapshot.exists())
+            {
+                let snap = snapshot.value as! NSDictionary
+                if snapshot.hasChild("isFriendDone")
+                {
+                    
+                    let isFriendDone = snap["isFriendDone"] as! Bool
+                    if (isFriendDone == true)
+                    {
+                        self.tabBar.items![4].badgeValue = "1"
+                    }
+                    else
+                    {
+                        print("Not Done")
+                    }
+                }
+                
+            }
+        })
+    }
 
 }

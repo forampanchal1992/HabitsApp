@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wfZ-3i-FHQ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wfZ-3i-FHQ">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -49,7 +49,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Profile" image="happy" selectedImage="happy" id="q6b-Ym-791"/>
+                    <tabBarItem key="tabBarItem" title="Profile" image="user" selectedImage="user" id="q6b-Ym-791"/>
                     <navigationItem key="navigationItem" title="Login" id="EIn-sI-Ecg"/>
                     <connections>
                         <outlet property="inputName" destination="vyQ-BH-Te6" id="Wlz-iX-cWu"/>
@@ -102,7 +102,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y3g-GR-7qy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2752.8000000000002" y="1231.9340329835084"/>
+            <point key="canvasLocation" x="953" y="1451"/>
         </scene>
         <!--Progress-->
         <scene sceneID="Geo-MH-fmF">
@@ -163,6 +163,22 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wQm-0g-YYF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3288.8000000000002" y="383.65817091454278"/>
+        </scene>
+        <!--Scoreboard-->
+        <scene sceneID="rBb-AR-vUe">
+            <objects>
+                <viewController id="gZh-4f-dnl" customClass="ScoreBoardController" customModule="GoodHabitsApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Y9g-FB-9Do" customClass="S">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="K0Q-Pi-NGL"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Scoreboard" image="scoring" selectedImage="scoring" id="45T-uG-gJw"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="elT-sA-BaO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2447" y="1238"/>
         </scene>
         <!--Back-->
         <scene sceneID="V6u-Qv-mf1">
@@ -270,7 +286,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="NGz-ui-c91">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="wfZ-3i-FHQ" sceneMemberID="viewController">
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="wfZ-3i-FHQ" customClass="TabBarController" customModule="GoodHabitsApp" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="57d-GH-LOC">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
@@ -281,6 +297,7 @@
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="7Wn-IQ-qKL"/>
                         <segue destination="Omk-e6-6aB" kind="relationship" relationship="viewControllers" id="nBW-Gk-nzd"/>
                         <segue destination="D4T-LM-qsV" kind="relationship" relationship="viewControllers" id="GZs-9h-UhI"/>
+                        <segue destination="gZh-4f-dnl" kind="relationship" relationship="viewControllers" id="dXl-yI-XIM"/>
                         <segue destination="UGQ-sc-F80" kind="relationship" relationship="viewControllers" id="e91-YT-mxl"/>
                     </connections>
                 </tabBarController>
@@ -293,8 +310,9 @@
         <image name="Investment" width="30" height="30"/>
         <image name="backgroundimg" width="650" height="1155"/>
         <image name="checked" width="30" height="30"/>
-        <image name="happy" width="30" height="30"/>
         <image name="meeting" width="30" height="30"/>
+        <image name="scoring" width="24" height="24"/>
+        <image name="user" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="7Wn-IQ-qKL"/>

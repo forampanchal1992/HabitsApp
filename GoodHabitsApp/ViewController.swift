@@ -36,7 +36,7 @@ class ViewController: UIViewController {
             inputName.text = "\(name)"
         }
         
-        competition()
+//        competition()
     }
     
     @IBAction func NextButtonClicked(_ sender: Any) {
