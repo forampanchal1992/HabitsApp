@@ -152,7 +152,9 @@
                             <constraint firstItem="8fu-Z2-kBb" firstAttribute="top" secondItem="CnV-XM-4gl" secondAttribute="top" constant="29" id="o5B-zP-trX"/>
                             <constraint firstItem="BgZ-bw-Doc" firstAttribute="leading" secondItem="CnV-XM-4gl" secondAttribute="leading" constant="112" id="q2O-Se-s8Q"/>
                             <constraint firstItem="PYJ-ck-gCl" firstAttribute="top" secondItem="BgZ-bw-Doc" secondAttribute="bottom" constant="120" id="qyg-c0-PYf"/>
+                            <constraint firstItem="PYJ-ck-gCl" firstAttribute="leading" secondItem="CnV-XM-4gl" secondAttribute="leading" id="rbw-qh-MLv"/>
                             <constraint firstItem="CnV-XM-4gl" firstAttribute="trailing" secondItem="BgZ-bw-Doc" secondAttribute="trailing" constant="113" id="sYO-l5-Nt5"/>
+                            <constraint firstItem="PYJ-ck-gCl" firstAttribute="trailing" secondItem="CnV-XM-4gl" secondAttribute="trailing" id="tFI-v2-Ogu"/>
                             <constraint firstItem="CnV-XM-4gl" firstAttribute="trailing" secondItem="8fu-Z2-kBb" secondAttribute="trailing" constant="16" id="v5m-q1-bo8"/>
                             <constraint firstAttribute="bottom" secondItem="x0R-8s-WwH" secondAttribute="bottom" constant="46" id="wEi-5W-kaS"/>
                             <constraint firstItem="8fu-Z2-kBb" firstAttribute="leading" secondItem="CnV-XM-4gl" secondAttribute="leading" constant="16" id="y3i-ow-mI6"/>
