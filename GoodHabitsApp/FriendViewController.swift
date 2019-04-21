@@ -35,36 +35,35 @@ class FriendViewController: UIViewController {
         
         self.db = Database.database().reference()
         
-      // self.connectFriend()
         let sharedPreferences = UserDefaults.standard
-        self.name = sharedPreferences.string(forKey: "Name")!
-     self.friend = (sharedPreferences.string(forKey:"Friend") ?? friend)!
-
-        if (friend == nil) {
-            friend = "Name"
-            print("No name found")
-            self.connectFriend()
+        if (sharedPreferences.object(forKey: "Name") == nil)
+        {
+            getFriendData()
+            print("Name empty =====")
+            if (sharedPreferences.object(forKey: "Friend") == nil)
+            {
+                print("Empty =========")
+                self.connectFriend()
+            }
+            else
+            {
+                print("Not Empty=========")
+                self.friend = sharedPreferences.string(forKey:"Friend")!
+                print("Friend: \(self.friend)")
+                friendNameLabel.text = "\(self.friend)"
+                getFriendData()
+            }
         }
-        else {
-//            self.friend = sharedPreferences.string(forKey:"Friend")!
-            print("Friend: \(self.friend)")
-            friendNameLabel.text = "\(self.friend)"
-        }
-        getFriendData()
+        
+        
+        
     }
-    
     func progressBar()
     {
         FriendCircularProgress.trackColor = UIColor.white
         FriendCircularProgress.progressColor = UIColor.gray
         //        FriendCircularProgress.setProgressWithAnimation(duration: 1.0, value: 0.0, from: from)
     }
-
-//    @objc func animateProgress(){
-//        let cP = self.view.viewWithTag(101) as! CircularProgressBarView
-//        cP.setProgressWithAnimation(duration: 1.0, value: 0.7, from: 0.0)
-//
-//    }
     
     func connectFriend() {
         let alert = UIAlertController(title: "Join a Friend", message: "Enter Friend's name",preferredStyle: .alert)

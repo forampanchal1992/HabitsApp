@@ -23,17 +23,18 @@ class TabBarController: UITabBarController {
         super.viewDidAppear(animated)
         
         let sharedPreferences = UserDefaults.standard
-      self.friend = sharedPreferences.string(forKey:"Friend")!
-        
-        if (friend == nil) {
-            friend = "Name"
-            print("No name found")
+      
+        if (sharedPreferences.object(forKey: "Friend") == nil)
+        {
+            print("Empty =========")
         }
         else
         {
-            print("friend +++++ \(friend)")
+            print("Not Empty=========")
+            self.friend = sharedPreferences.string(forKey:"Friend")!
             checkProgressDone()
         }
+
     }
     
     func checkProgressDone()

@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoodHabitsApp/ViewController.swift"
-            timestampString = "577505048.421746"
+            timestampString = "577572744.3375601"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "58"
-            endingLineNumber = "58"
+            startingLineNumber = "78"
+            endingLineNumber = "78"
             landmarkName = "competition()"
             landmarkType = "7">
          </BreakpointContent>

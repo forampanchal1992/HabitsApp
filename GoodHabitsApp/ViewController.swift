@@ -40,13 +40,33 @@ class ViewController: UIViewController {
     }
     
     @IBAction func NextButtonClicked(_ sender: Any) {
-        self.inputNameText = inputName.text!
-        let data = ["Name" : inputNameText,"areFriendsConnected" : false] as [String : Any]
-        self.db.child("Friends").child(String(inputNameText)).setValue(data)
         
+//        self.view.endEditing(true)
+//        let data = ["Name" : inputNameText,"areFriendsConnected" : false] as [String : Any]
+//        self.db.child("Friends").child(String(inputNameText)).setValue(data)
+        
+        self.inputNameText = self.inputName.text!
+        let data = ["Name" : self.inputNameText,"areFriendsConnected" : false] as [String : Any]
+        self.db.child("Friends").child(String(self.inputNameText)).setValue(data)
+
         let sharedPreferences = UserDefaults.standard
         sharedPreferences.set(self.inputNameText, forKey:"Name")
         print("Saved \(self.inputNameText) to shared preferences!")
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true);
+        
+        self.db?.child("Friends").child(String(inputName.text!)).observe(.value, with: { (snapshot) in
+            
+            if (snapshot.exists())
+            {
+                var alert = UIAlertController(title: "User name exists", message: "Choose a different user name", preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            }
+            
+        })
     }
     
     func competition()

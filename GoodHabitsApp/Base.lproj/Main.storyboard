@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wfZ-3i-FHQ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wfZ-3i-FHQ">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -126,16 +126,24 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="PYJ-ck-gCl">
-                                <rect key="frame" x="0.0" y="350" width="375" height="268"/>
+                                <rect key="frame" x="22" y="350" width="330" height="268"/>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BgZ-bw-Doc" customClass="CircularProgressBarView" customModule="GoodHabitsApp" customModuleProvider="target">
                                 <rect key="frame" x="112" y="142" width="150" height="88"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Timer" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OCx-NK-C6g">
+                                <rect key="frame" x="22" y="94" width="337" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="PYJ-ck-gCl" secondAttribute="bottom" constant="49" id="1qi-bj-b6g"/>
+                            <constraint firstItem="PYJ-ck-gCl" firstAttribute="leading" secondItem="CnV-XM-4gl" secondAttribute="leading" constant="22" id="1s0-QH-jjf"/>
                             <constraint firstItem="x0R-8s-WwH" firstAttribute="trailing" secondItem="CnV-XM-4gl" secondAttribute="trailing" id="8Eh-Fn-3hR"/>
                             <constraint firstItem="PYJ-ck-gCl" firstAttribute="trailing" secondItem="CnV-XM-4gl" secondAttribute="trailing" id="Eaa-dJ-RHh"/>
                             <constraint firstItem="x0R-8s-WwH" firstAttribute="leading" secondItem="CnV-XM-4gl" secondAttribute="leading" id="G17-3H-GVI"/>
@@ -149,6 +157,7 @@
                             <constraint firstItem="BgZ-bw-Doc" firstAttribute="leading" secondItem="CnV-XM-4gl" secondAttribute="leading" constant="124" id="aAp-To-Qn7"/>
                             <constraint firstItem="CnV-XM-4gl" firstAttribute="trailing" secondItem="BgZ-bw-Doc" secondAttribute="trailing" constant="88" id="amd-Ty-xcl"/>
                             <constraint firstItem="CnV-XM-4gl" firstAttribute="trailing" secondItem="BgZ-bw-Doc" secondAttribute="trailing" constant="101" id="fXV-cf-P3j"/>
+                            <constraint firstItem="CnV-XM-4gl" firstAttribute="trailing" secondItem="PYJ-ck-gCl" secondAttribute="trailing" constant="23" id="jQb-22-3pg"/>
                             <constraint firstItem="8fu-Z2-kBb" firstAttribute="top" secondItem="CnV-XM-4gl" secondAttribute="top" constant="29" id="o5B-zP-trX"/>
                             <constraint firstItem="BgZ-bw-Doc" firstAttribute="leading" secondItem="CnV-XM-4gl" secondAttribute="leading" constant="112" id="q2O-Se-s8Q"/>
                             <constraint firstItem="PYJ-ck-gCl" firstAttribute="top" secondItem="BgZ-bw-Doc" secondAttribute="bottom" constant="120" id="qyg-c0-PYf"/>
@@ -166,6 +175,7 @@
                         <outlet property="CircularProgress" destination="BgZ-bw-Doc" id="9zW-fC-WDg"/>
                         <outlet property="mScrollView" destination="PYJ-ck-gCl" id="YRE-Mf-ord"/>
                         <outlet property="nameLabel" destination="8fu-Z2-kBb" id="mIv-cp-rAU"/>
+                        <outlet property="timerLabel" destination="OCx-NK-C6g" id="XSt-Kc-Ngx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wQm-0g-YYF" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -319,8 +329,8 @@
         <image name="backgroundimg" width="650" height="1155"/>
         <image name="checked" width="30" height="30"/>
         <image name="meeting" width="30" height="30"/>
-        <image name="scoring" width="19.200000762939453" height="19.200000762939453"/>
-        <image name="user" width="18" height="18"/>
+        <image name="scoring" width="24" height="24"/>
+        <image name="user" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="7Wn-IQ-qKL"/>

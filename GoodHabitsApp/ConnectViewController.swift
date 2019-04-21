@@ -29,10 +29,10 @@ class ConnectViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     var generatedCode : String = ""
     var habitsSnapshot = [String:String]()
     var habits : [String] = []
-    // var accessCode:String = ""
     
     var name : String = ""
     var friendName : String = ""
+    var isTimerRunning = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,16 +40,17 @@ class ConnectViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         self.db = Database.database().reference()
         
         let sharedPreferences = UserDefaults.standard
-        self.name = sharedPreferences.string(forKey: "Name")!
-        
-        if (name == nil) {
-            name = "Name"
+        if (sharedPreferences.object(forKey: "Friend") == nil)
+        {
             print("No name found")
         }
-        else {
-            print("Name: \(name)")
+        else
+        {
+            self.name = sharedPreferences.string(forKey: "Name")!
             nameLabel.text = "\(name)"
         }
+        
+        
         pickerView.delegate = self
         pickerView.dataSource = self
         toTextField.inputView = pickerView
@@ -103,31 +104,21 @@ class ConnectViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     @IBAction func startButtonClicked(_ sender: Any) {
         
         var selectedHabit = toTextField.text
-        var createdHabit = customeHabitTextField.text
-        
-        var myHabit : String = ""
         print("Selected: \(selectedHabit!)")
-        print("Created: \(createdHabit!)")
-        
-        if (selectedHabit != nil || createdHabit != nil)
+    
+        if(selectedHabit != nil)
         {
-            if(selectedHabit != nil)
-            {
-                print("Selected habit is: \(selectedHabit!)")
-                self.db.child("Friends").child(String(name)).child("Habit").setValue(selectedHabit!)
-                myHabit = selectedHabit!
-                
-            }
-            else if(createdHabit != nil)
-            {
-                print("Created habit is: \(createdHabit!)")
-            self.db.child("Friends").child(String(name)).child("Habit").setValue(createdHabit!)
-                myHabit = createdHabit!
-            }
+            print("Selected habit is: \(selectedHabit!)")
+            isTimerRunning = true
+            self.db.child("Friends").child(String(name)).child("Habit").setValue(selectedHabit!)
+            self.db.child("Friends").child(String(name)).child("isTimerRunning").setValue(isTimerRunning)
             
-            let sharedPreferences = UserDefaults.standard
-            sharedPreferences.set(myHabit, forKey:"Habit")
         }
+        
+        let sharedPreferences = UserDefaults.standard
+        sharedPreferences.set(selectedHabit, forKey:"Habit")
+        sharedPreferences.set(isTimerRunning, forKey:"Timer")
     }
+    
     
 }
