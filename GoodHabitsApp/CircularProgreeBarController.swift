@@ -132,7 +132,7 @@ class CircularProgreeBarController: UIViewController {
                     count += 1
                     let Button = UIButton()
                     Button.tag = count
-                    Button.frame = CGRect(x: px+100, y: py+10, width: 100, height: 45)
+                    Button.frame = CGRect(x: px+100, y: py+10, width: 100, height: 100)
                     Button.backgroundColor = UIColor.blue
                     Button.setTitle("\(subHabit[j]) ", for: .normal)
                     Button.addTarget(self, action: #selector(scrollButtonAction), for: .touchUpInside)
@@ -147,7 +147,7 @@ class CircularProgreeBarController: UIViewController {
                     count += 1
                     let Button = UIButton()
                     Button.tag = count
-                    Button.frame = CGRect(x: px+100, y: py+10, width: 100, height: 45)
+                    Button.frame = CGRect(x: px+100, y: py+10, width: 100, height: 100)
                     Button.backgroundColor = UIColor.black
                     Button.setTitle("\(subHabit[j])", for: .normal)
                     Button.addTarget(self, action: #selector(scrollButtonAction), for: .touchUpInside)

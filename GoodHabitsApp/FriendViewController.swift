@@ -35,21 +35,21 @@ class FriendViewController: UIViewController {
         
         self.db = Database.database().reference()
         
-//        self.connectFriend()
+      // self.connectFriend()
         let sharedPreferences = UserDefaults.standard
         self.name = sharedPreferences.string(forKey: "Name")!
-////        self.friend = (sharedPreferences.string(forKey:"Friend") ?? friend)!
-//
-//        if (friend == nil) {
-//            friend = "Name"
-//            print("No name found")
-//            self.connectFriend()
-//        }
-//        else {
-////            self.friend = sharedPreferences.string(forKey:"Friend")!
-//            print("Friend: \(self.friend)")
-//            friendNameLabel.text = "\(self.friend)"
-//        }
+     self.friend = (sharedPreferences.string(forKey:"Friend") ?? friend)!
+
+        if (friend == nil) {
+            friend = "Name"
+            print("No name found")
+            self.connectFriend()
+        }
+        else {
+//            self.friend = sharedPreferences.string(forKey:"Friend")!
+            print("Friend: \(self.friend)")
+            friendNameLabel.text = "\(self.friend)"
+        }
         getFriendData()
     }
     
