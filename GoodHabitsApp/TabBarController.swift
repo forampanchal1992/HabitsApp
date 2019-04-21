@@ -18,7 +18,6 @@ class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.db = Database.database().reference()
-        // Do any additional setup after loading the view.
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -33,9 +32,8 @@ class TabBarController: UITabBarController {
         else
         {
             print("friend +++++ \(friend)")
-//            self.tabBar.items![4].badgeValue = "1"
             checkProgressDone()
-        } 
+        }
     }
     
     func checkProgressDone()
