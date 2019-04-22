@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import FirebaseDatabase
+import Dispatch
 
 class CircularProgreeBarController: UIViewController {
     
@@ -32,32 +33,29 @@ class CircularProgreeBarController: UIViewController {
     var buttonCount = 0
     var progress = 0
     var from : Float = 0.0
+    var to : Float = 0.0
     var score : Int = 0
     
-    var seconds = 10 //86400
-    var timer = Timer()
+    var seconds = 50 //86400
+//    var timer = Timer()
+    var timer:Timer?
     var isTimerRunning = false
     var counter = 0
-    
+    let sharedPreferences = UserDefaults.standard
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         self.db = Database.database().reference()
         
         checkSharedPreferences()
         progressBar()
-      
-        DispatchQueue.global(qos: .userInitiated).async {
-            
-            DispatchQueue.main.async {
-                self.checkTimer()
-            }
-        }
     }
+  
     func checkTimer() {
         
         self.db?.child("Friends").child(String(name)).observe(.value, with: { (snapshot) in
             
-            print("$$$Is Timer Running: \(snapshot.value!)")
+//            print("$$$Is Timer Running: \(snapshot.value!)")
             let snap = snapshot.value as? NSDictionary
             let timerValue = snap!["isTimerRunning"] as! Bool
             
@@ -73,16 +71,24 @@ class CircularProgreeBarController: UIViewController {
     }
     
     func progressBar() {
-        CircularProgress.trackColor = UIColor.white
-        CircularProgress.progressColor = UIColor.gray
+        
+        CircularProgress.trackColor = UIColor.lightGray
+        CircularProgress.progressColor = UIColor.init(displayP3Red: 255, green: 0, blue: 0, alpha: 0.40)
+        
     }
     
     func checkSharedPreferences()
     {
-        let sharedPreferences = UserDefaults.standard
-        self.from = sharedPreferences.float(forKey: "From")
-        
-        print("From value : \(self.from)")
+        if (sharedPreferences.object(forKey: "From") == nil)
+        {
+            print("No value")
+        }
+        else
+        {
+            self.from = sharedPreferences.float(forKey: "From")
+            print("From value from sharedpreferences ---------> \(from)")
+            CircularProgress.setProgressWithAnimation(duration: 1.0, value: from, from: 0)
+        }
         if (sharedPreferences.object(forKey: "Habit") == nil || sharedPreferences.object(forKey: "Name") == nil) {
             habit = "Habit"
             name = "Name"
@@ -98,14 +104,20 @@ class CircularProgreeBarController: UIViewController {
     }
     
     func runTimer() {
-        seconds = 10 // 86400
+        print("Run timer Called")
+        self.seconds = 50 // 86400
         timer = Timer.scheduledTimer(timeInterval: 1, target: self,   selector: (#selector(CircularProgreeBarController.updateTimer)), userInfo: nil, repeats: true)
+        timer?.fire()
+        RunLoop.current.add(timer!, forMode: .common)
+        timer!.tolerance = 0.1
+        
+//        self.timer = timer
         
         isTimerRunning = false
     }
     
     @objc func updateTimer() {
-        seconds -= 1     //This will decrement(count down)the seconds.
+        seconds -= 1
         timerLabel.text = timeString(time: TimeInterval(seconds))
         if (seconds == 0)
         {
@@ -115,7 +127,7 @@ class CircularProgreeBarController: UIViewController {
     }
     
     func resetTimer() {
-        timer.invalidate()
+        timer!.invalidate()
         seconds = 0
         timerLabel.text = timeString(time: TimeInterval(seconds))
         isTimerRunning = true
@@ -196,9 +208,9 @@ class CircularProgreeBarController: UIViewController {
                     Button.layer.borderWidth = 3
                     Button.layer.borderColor = UIColor.black.cgColor
                     Button.frame = CGRect(x: px, y: py, width: wd, height: ht)
-                    Button.backgroundColor = UIColor.lightGray
+                    Button.backgroundColor = UIColor.init(displayP3Red: 0.0, green: 128.0, blue: 135.0, alpha: 0.50)
                     Button.setTitle("\(subHabit[j]) ", for: .normal)
-                    Button.addTarget(self, action: #selector(scrollButtonAction), for: .touchUpInside)
+                    Button.addTarget(self, action: #selector(HabitButtons), for: .touchUpInside)
                     mScrollView.addSubview(Button)
                     px = px + wd
                     
@@ -215,9 +227,9 @@ class CircularProgreeBarController: UIViewController {
                     Button.layer.borderWidth = 3
                     Button.layer.borderColor = UIColor.black.cgColor
                     Button.frame = CGRect(x: px, y: py, width: wd, height: ht)
-                    Button.backgroundColor = UIColor.lightGray
+                    Button.backgroundColor = UIColor.init(displayP3Red: 0.0, green: 128.0, blue: 135.0, alpha: 0.50)
                     Button.setTitle("\(subHabit[j])", for: .normal)
-                    Button.addTarget(self, action: #selector(scrollButtonAction), for: .touchUpInside)
+                    Button.addTarget(self, action: #selector(HabitButtons), for: .touchUpInside)
                     mScrollView.addSubview(Button)
                     px = px + wd
                     print("Second WIDTH.........\(mScrollView.frame.width)")
@@ -228,50 +240,46 @@ class CircularProgreeBarController: UIViewController {
          mScrollView.contentSize = CGSize(width: px, height: py)
     }
     
-    @objc func scrollButtonAction(sender: UIButton) {
+    @objc func HabitButtons(sender: UIButton) {
+        
         print("\(sender.tag) is Selected")
         sender.isEnabled = false
+        sender.alpha = 0.50
+        let title = sender.currentTitle
+        sharedPreferences.set(title, forKey: "Title")
+        let sec = 3 //86400
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(sec)) {
+            sender.isEnabled = true
+            sender.alpha = 1.0
+            
+        }
+        
         print(sender.currentTitle!)
     self.db.child("Friends").child(String(name)).child("HabitsDone").child("Habit-\(sender.tag)").setValue(sender.currentTitle)
         buttonCount += 1
-//        print("Button click count : \(buttonCount)")
+        updateScore()
+        
+    }
     
-        if (buttonCount == 1)
+    func updateScore()
+    {
+        print("From value ----> \(from)")
+        print("=========")
+        if (from == 1.0)
         {
-            CircularProgress.setProgressWithAnimation(duration: 1.0, value: 0.25, from: from)
+            self.from = 0.0
+            updateScore()
+        }
+        else
+        {
+            CircularProgress.setProgressWithAnimation(duration: 1.0, value: from+0.25, from: from)
+            score = score + 5
+            print("Score ---> \(score)")
+            //        self.db.child("Friends").child(String(name)).child("Progress").setValue("25%")
+            self.db.child("Friends").child(String(name)).child("Score").setValue(score)
             from = from + 0.25
-            score = score + 5
-            print("Score ---> \(score)")
-            self.db.child("Friends").child(String(name)).child("Progress").setValue("25%")
-            self.db.child("Friends").child(String(name)).child("Score").setValue(score)
         }
-        else if (buttonCount == 2)
-        {
-            CircularProgress.setProgressWithAnimation(duration: 1.0, value: 0.50, from: from)
-            from = from + 0.50
-            score = score + 5
-            print("Score ---> \(score)")
-            self.db.child("Friends").child(String(name)).child("Progress").setValue("50%")
-            self.db.child("Friends").child(String(name)).child("Score").setValue(score)
-        }
-        else if(buttonCount == 3)
-        {
-            CircularProgress.setProgressWithAnimation(duration: 1.0, value: 0.75, from: from)
-            from = from + 0.75
-            score = score + 5
-            print("Score ---> \(score)")
-            self.db.child("Friends").child(String(name)).child("Progress").setValue("75%")
-            self.db.child("Friends").child(String(name)).child("Score").setValue(score)
-        }
-        else if(buttonCount == 4)
-        {
-            CircularProgress.setProgressWithAnimation(duration: 1.0, value: 1.0, from: from)
-            score = score + 5
-            print("Score ---> \(score)")
-            self.db.child("Friends").child(String(name)).child("Progress").setValue("100%")
-            self.db.child("Friends").child(String(name)).child("Score").setValue(score)
-        }
-        let sharedPreferences = UserDefaults.standard
+        
         sharedPreferences.set(self.from, forKey:"From")
     }
 }
