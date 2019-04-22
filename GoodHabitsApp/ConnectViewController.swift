@@ -113,7 +113,10 @@ class ConnectViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         if(selectedHabit != nil)
         {
             print("Selected habit is: \(selectedHabit!)")
-        
+            showToast(message: "Habit Saved")
+            var alert = UIAlertController(title: "Habit Saved", message: "Go to Progress to track Habit", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
             self.db.child("Friends").child(String(name)).child("Habit").setValue(selectedHabit!)
             
         }
@@ -122,5 +125,24 @@ class ConnectViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         sharedPreferences.set(selectedHabit, forKey:"Habit")
     }
     
+    func showToast(message : String) {
+        
+        let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 75, y: self.view.frame.size.height-150, width: 150, height: 35))
+        toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+        toastLabel.textColor = UIColor.white
+        toastLabel.backgroundColor = UIColor.darkGray
+        toastLabel.textAlignment = .center;
+        toastLabel.font = UIFont(name: "Montserrat-Light", size: 12.0)
+        toastLabel.text = message
+        toastLabel.alpha = 1.0
+        toastLabel.layer.cornerRadius = 10;
+        toastLabel.clipsToBounds  =  true
+        self.view.addSubview(toastLabel)
+        UIView.animate(withDuration: 3.0, delay: 0.1, options: .curveEaseOut, animations: {
+            toastLabel.alpha = 0.0
+        }, completion: {(isCompleted) in
+            toastLabel.removeFromSuperview()
+        })
+    }
     
 }

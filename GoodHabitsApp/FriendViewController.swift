@@ -12,11 +12,6 @@ import Firebase
 
 class FriendViewController: UIViewController {
     
-
-    @IBOutlet weak var subHabitFriendOneLabel: UILabel!
-    @IBOutlet weak var subHabitFriendTwoLabel: UILabel!
-    @IBOutlet weak var subHabitFriendThreeLabel: UILabel!
-    
     @IBOutlet weak var FriendCircularProgress: FriendProgressBarView!
     
     var db:DatabaseReference!
@@ -27,7 +22,8 @@ class FriendViewController: UIViewController {
     var progress : String = ""
     @IBOutlet weak var friendNameLabel: UILabel!
     
-     var subHabitsArray : [String] = []
+    @IBOutlet weak var percentageLabel: UILabel!
+    var subHabitsArray : [String] = []
     let sharedPreferences = UserDefaults.standard
     
     override func viewDidLoad() {
@@ -182,24 +178,28 @@ class FriendViewController: UIViewController {
                                         print("Progress: \(friendProgress)")
                                         self.progressBar()
                                         self.FriendCircularProgress.setProgressWithAnimation(duration: 1.0, value: 0.25, from: 0.0)
+                                        self.percentageLabel.text = friendProgress
                                     }
                                     else if (friendProgress == "50.0%")
                                     {
                                         print("Progress: \(friendProgress)")
                                         self.progressBar()
                                         self.FriendCircularProgress.setProgressWithAnimation(duration: 1.0, value: 0.50, from: 0.25)
+                                        self.percentageLabel.text = friendProgress
                                     }
                                     else if (friendProgress == "75.0%")
                                     {
                                         print("Progress: \(friendProgress)")
                                         self.progressBar()
                                         self.FriendCircularProgress.setProgressWithAnimation(duration: 1.0, value: 0.75, from: 0.50)
+                                        self.percentageLabel.text = friendProgress
                                     }
                                     else if (friendProgress == "100.0%")
                                     {
                                         print("Progress: \(friendProgress)")
                                         self.progressBar()
                                         self.FriendCircularProgress.setProgressWithAnimation(duration: 1.0, value: 1.0, from: 0.75)
+                                        self.percentageLabel.text = friendProgress
                                         self.db?.child("Friends").child(String(self.name)).child("isFriendDone").setValue(true)
                                     }
                                 }
