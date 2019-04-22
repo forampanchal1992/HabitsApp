@@ -8,11 +8,9 @@
 
 import UIKit
 
-<<<<<<< HEAD
-=======
 import FirebaseDatabase
 import Firebase
->>>>>>> master
+
 
 class ScoreBoardController: UIViewController {
 
