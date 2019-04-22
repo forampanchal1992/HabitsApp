@@ -8,24 +8,75 @@
 
 import UIKit
 
+<<<<<<< HEAD
+=======
+import FirebaseDatabase
+import Firebase
+>>>>>>> master
 
 class ScoreBoardController: UIViewController {
 
+    @IBOutlet weak var ScoreLabel: UILabel!
+    @IBOutlet weak var FriendScoreLabel: UILabel!
+    
+    var db:DatabaseReference!
+    var friend : String = ""
+    var name : String = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.db = Database.database().reference()
+        
+        checkSharedPreferences()
 
         // Do any additional setup after loading the view.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func checkSharedPreferences()
+    {
+        let sharedPreferences = UserDefaults.standard
+        
+        if (sharedPreferences.object(forKey: "Friend") == nil || sharedPreferences.object(forKey: "Name") == nil) {
+            print("No name or friend found")
+        }
+        else {
+            self.friend = sharedPreferences.string(forKey: "Friend")!
+            self.name = sharedPreferences.string(forKey: "Name")!
+            print("Friend: \(friend))")
+//            ScoreLabel.text = name
+//            FriendScoreLabel.text = friend
+            getScore()
+            getFriendScore()
+        }
     }
-    */
-
+    func getScore()
+    {
+    
+        self.db?.child("Friends").child(String(name)).observe(.value, with: { (snapshot) in
+            
+            if (snapshot.exists())
+            {
+                let snap = snapshot.value as! NSDictionary
+                let myScore = snap["Score"] as! Int
+                
+                self.ScoreLabel.text = "You have \(myScore) points"
+            }
+        })
+    }
+    
+    func getFriendScore()
+    {
+        self.db?.child("Friends").child(String(friend)).observe(.value, with: { (snapshot) in
+            
+            if (snapshot.exists())
+            {
+                let snap = snapshot.value as! NSDictionary
+                print("Score ----- \(snap["Score"])")
+                let myScore = snap["Score"] as! Int
+//
+                self.FriendScoreLabel.text = "\(self.friend) has \(myScore) points"
+            }
+        })
+    }
+    
 }

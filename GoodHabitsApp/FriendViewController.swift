@@ -28,21 +28,55 @@ class FriendViewController: UIViewController {
     @IBOutlet weak var friendNameLabel: UILabel!
     
      var subHabitsArray : [String] = []
+    let sharedPreferences = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tabBarItem.badgeValue = nil
         
         self.db = Database.database().reference()
+        self.name = sharedPreferences.string(forKey: "Name")!
+        if (sharedPreferences.object(forKey: "Friend") == nil)
+        {
+            print("Empty =========")
+            checkFriendFromFirebase()
+            self.connectFriend()
+        }
+        else
+        {
+            print("Not Empty=========")
+            self.friend = sharedPreferences.string(forKey:"Friend")!
+            print("Friend: \(self.friend)")
+            friendNameLabel.text = "\(self.friend)"
+            getFriendData()
+        }
+    }
+    func checkFriendFromFirebase()
+    {
+        self.db?.child("Friends").child(String(self.name)).observe(.value, with: { (snapshot) in
+            if(snapshot.exists())
+            {
+                let snap = snapshot.value as! NSDictionary
+                let friendConnected = snap["Connected with"] as! String
+                if (friendConnected != nil)
+                {
+                    self.friendNameLabel.text = friendConnected
+                }
+                
+            }
+        })
+    }
+    
+    func checkSharedPreferences()
+    {
         
-        let sharedPreferences = UserDefaults.standard
         if (sharedPreferences.object(forKey: "Name") == nil)
         {
-            getFriendData()
             print("Name empty =====")
             if (sharedPreferences.object(forKey: "Friend") == nil)
             {
                 print("Empty =========")
+                checkFriendFromFirebase()
                 self.connectFriend()
             }
             else
@@ -54,9 +88,6 @@ class FriendViewController: UIViewController {
                 getFriendData()
             }
         }
-        
-        
-        
     }
     func progressBar()
     {
@@ -110,21 +141,25 @@ class FriendViewController: UIViewController {
     }
     
     func getFriendData() {
-        
+        print("Exist")
         self.db?.child("Friends").child(String(name)).observe(.value, with: { (snapshot) in
             
             if (snapshot.exists())
             {
+                print("Exist 1")
                 let snap = snapshot.value as! NSDictionary
                  if snapshot.hasChild("Connected with")
                  {
+                    print("Exist 2")
                     let connectedFriend = snap["Connected with"] as! String
                     if (connectedFriend != nil)
                     {
+                        print("Exist 3")
                         self.db?.child("Friends").child(String(connectedFriend)).observe(.value, with: { (snapshot) in
                             
                             if (snapshot.exists())
                             {
+                                print("Exist 4")
                                 print("^^^^^^^\(snapshot)")
                                 let friendSnap = snapshot.value as! NSDictionary
                                 let friendHabit = friendSnap["Habit"] as! String
