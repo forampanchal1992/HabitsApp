@@ -49,31 +49,32 @@ class CircularProgreeBarController: UIViewController {
         
         checkSharedPreferences()
         progressBar()
+        
     }
   
-    func checkTimer() {
-        
-        self.db?.child("Friends").child(String(name)).observe(.value, with: { (snapshot) in
-            
-//            print("$$$Is Timer Running: \(snapshot.value!)")
-            let snap = snapshot.value as? NSDictionary
-            let timerValue = snap!["isTimerRunning"] as! Bool
-            
-            if(timerValue == true)
-            {
-                self.runTimer()
-            }
-            else
-            {
-                print("Timer is not running")
-            }
-        })
-    }
+//    func checkTimer() {
+//
+//        self.db?.child("Friends").child(String(name)).observe(.value, with: { (snapshot) in
+//
+////            print("$$$Is Timer Running: \(snapshot.value!)")
+//            let snap = snapshot.value as? NSDictionary
+//            let timerValue = snap!["isTimerRunning"] as! Bool
+//
+//            if(timerValue == true)
+//            {
+//                self.runTimer()
+//            }
+//            else
+//            {
+//                print("Timer is not running")
+//            }
+//        })
+//    }
     
     func progressBar() {
         
         CircularProgress.trackColor = UIColor.lightGray
-        CircularProgress.progressColor = UIColor.init(displayP3Red: 255, green: 0, blue: 0, alpha: 0.40)
+        CircularProgress.progressColor = UIColor.init(displayP3Red: 255, green: 0, blue: 0, alpha: 0.90)
         
     }
     
@@ -87,7 +88,15 @@ class CircularProgreeBarController: UIViewController {
         {
             self.from = sharedPreferences.float(forKey: "From")
             print("From value from sharedpreferences ---------> \(from)")
-            CircularProgress.setProgressWithAnimation(duration: 1.0, value: from, from: 0)
+            
+            if (from == 1.0)
+            {
+                CircularProgress.setProgressWithAnimation(duration: 1.0, value: 0, from: 0)
+            }
+            else{
+                CircularProgress.setProgressWithAnimation(duration: 1.0, value: from, from: 0)
+            }
+            
         }
         if (sharedPreferences.object(forKey: "Habit") == nil || sharedPreferences.object(forKey: "Name") == nil) {
             habit = "Habit"
@@ -102,46 +111,46 @@ class CircularProgreeBarController: UIViewController {
             getHabitData()
         }
     }
-    
-    func runTimer() {
-        print("Run timer Called")
-        self.seconds = 50 // 86400
-        timer = Timer.scheduledTimer(timeInterval: 1, target: self,   selector: (#selector(CircularProgreeBarController.updateTimer)), userInfo: nil, repeats: true)
-        timer?.fire()
-        RunLoop.current.add(timer!, forMode: .common)
-        timer!.tolerance = 0.1
-        
-//        self.timer = timer
-        
-        isTimerRunning = false
-    }
-    
-    @objc func updateTimer() {
-        seconds -= 1
-        timerLabel.text = timeString(time: TimeInterval(seconds))
-        if (seconds == 0)
-        {
-            print("Second : \(seconds)")
-            resetTimer()
-        }
-    }
-    
-    func resetTimer() {
-        timer!.invalidate()
-        seconds = 0
-        timerLabel.text = timeString(time: TimeInterval(seconds))
-        isTimerRunning = true
-        counter = counter + 1
-        print("Counter : \(counter)")
-        runTimer()
-    }
-    
-    func timeString(time:TimeInterval) -> String {
-        let hours = Int(time) / 3600
-        let minutes = Int(time) / 60 % 60
-        let seconds = Int(time) % 60
-        return String(format:"%02i:%02i:%02i", hours, minutes, seconds)
-    }
+//
+//    func runTimer() {
+//        print("Run timer Called")
+//        self.seconds = 50 // 86400
+//        timer = Timer.scheduledTimer(timeInterval: 1, target: self,   selector: (#selector(CircularProgreeBarController.updateTimer)), userInfo: nil, repeats: true)
+//        timer?.fire()
+//        RunLoop.current.add(timer!, forMode: .common)
+//        timer!.tolerance = 0.1
+//
+////        self.timer = timer
+//
+//        isTimerRunning = false
+//    }
+//
+//    @objc func updateTimer() {
+//        seconds -= 1
+//        timerLabel.text = timeString(time: TimeInterval(seconds))
+//        if (seconds == 0)
+//        {
+//            print("Second : \(seconds)")
+//            resetTimer()
+//        }
+//    }
+//
+//    func resetTimer() {
+//        timer!.invalidate()
+//        seconds = 0
+//        timerLabel.text = timeString(time: TimeInterval(seconds))
+//        isTimerRunning = true
+//        counter = counter + 1
+//        print("Counter : \(counter)")
+//        runTimer()
+//    }
+//
+//    func timeString(time:TimeInterval) -> String {
+//        let hours = Int(time) / 3600
+//        let minutes = Int(time) / 60 % 60
+//        let seconds = Int(time) % 60
+//        return String(format:"%02i:%02i:%02i", hours, minutes, seconds)
+//    }
     
     func nullToNil(value : Any?) -> Any? {
         if value is NSNull {
@@ -267,6 +276,8 @@ class CircularProgreeBarController: UIViewController {
         print("=========")
         if (from == 1.0)
         {
+            self.counter = counter + 1
+            self.db.child("Friends").child(String(name)).child("timesDoneHabit").setValue(self.counter)
             self.from = 0.0
             updateScore()
         }
@@ -275,11 +286,16 @@ class CircularProgreeBarController: UIViewController {
             CircularProgress.setProgressWithAnimation(duration: 1.0, value: from+0.25, from: from)
             score = score + 5
             print("Score ---> \(score)")
-            //        self.db.child("Friends").child(String(name)).child("Progress").setValue("25%")
             self.db.child("Friends").child(String(name)).child("Score").setValue(score)
             from = from + 0.25
+            let progress = from * 100
+            self.db.child("Friends").child(String(name)).child("Progress").setValue("\(progress)%")
+            self.db.child("Friends").child(String(name)).child("timesDoneHabit").setValue(self.counter)
         }
         
         sharedPreferences.set(self.from, forKey:"From")
+        print("######")
+        print("\(self.from)")
+        
     }
 }

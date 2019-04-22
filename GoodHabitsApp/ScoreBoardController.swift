@@ -20,6 +20,8 @@ class ScoreBoardController: UIViewController {
     var friend : String = ""
     var name : String = ""
     
+    let sharedPreferences = UserDefaults.standard
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.db = Database.database().reference()
@@ -31,7 +33,6 @@ class ScoreBoardController: UIViewController {
     
     func checkSharedPreferences()
     {
-        let sharedPreferences = UserDefaults.standard
         
         if (sharedPreferences.object(forKey: "Friend") == nil || sharedPreferences.object(forKey: "Name") == nil) {
             print("No name or friend found")
@@ -55,7 +56,6 @@ class ScoreBoardController: UIViewController {
             {
                 let snap = snapshot.value as! NSDictionary
                 let myScore = snap["Score"] as! Int
-                
                 self.ScoreLabel.text = "You have \(myScore) points"
             }
         })
@@ -70,7 +70,7 @@ class ScoreBoardController: UIViewController {
                 let snap = snapshot.value as! NSDictionary
                 print("Score ----- \(snap["Score"])")
                 let myScore = snap["Score"] as! Int
-//
+                
                 self.FriendScoreLabel.text = "\(self.friend) has \(myScore) points"
             }
         })

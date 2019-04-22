@@ -36,6 +36,8 @@ class FriendViewController: UIViewController {
         
         self.db = Database.database().reference()
         self.name = sharedPreferences.string(forKey: "Name")!
+        
+//        getFriendData()
         if (sharedPreferences.object(forKey: "Friend") == nil)
         {
             print("Empty =========")
@@ -50,7 +52,14 @@ class FriendViewController: UIViewController {
             friendNameLabel.text = "\(self.friend)"
             getFriendData()
         }
+        
+        checkFriendFromFirebase()
     }
+    
+    @IBAction func joinFriendClicked(_ sender: Any) {
+        connectFriend()
+    }
+    
     func checkFriendFromFirebase()
     {
         self.db?.child("Friends").child(String(self.name)).observe(.value, with: { (snapshot) in
@@ -91,8 +100,8 @@ class FriendViewController: UIViewController {
     }
     func progressBar()
     {
-        FriendCircularProgress.trackColor = UIColor.white
-        FriendCircularProgress.progressColor = UIColor.gray
+        FriendCircularProgress.trackColor = UIColor.lightGray
+        FriendCircularProgress.progressColor = UIColor.init(displayP3Red: 255, green: 0, blue: 0, alpha: 0.50)
         //        FriendCircularProgress.setProgressWithAnimation(duration: 1.0, value: 0.0, from: from)
     }
     
@@ -164,28 +173,33 @@ class FriendViewController: UIViewController {
                                 let friendSnap = snapshot.value as! NSDictionary
                                 let friendHabit = friendSnap["Habit"] as! String
                                 self.friendNameLabel.text = "\(connectedFriend)'s habit is: \(friendHabit)"
-                                
                                 if snapshot.hasChild("Progress")
                                 {
                                     let friendProgress = friendSnap["Progress"] as! String
                                     
-                                    if (friendProgress == "33%")
+                                    if (friendProgress == "25.0%")
                                     {
                                         print("Progress: \(friendProgress)")
                                         self.progressBar()
-                                        self.FriendCircularProgress.setProgressWithAnimation(duration: 1.0, value: 0.33, from: 0.0)
+                                        self.FriendCircularProgress.setProgressWithAnimation(duration: 1.0, value: 0.25, from: 0.0)
                                     }
-                                    else if (friendProgress == "66%")
+                                    else if (friendProgress == "50.0%")
                                     {
                                         print("Progress: \(friendProgress)")
                                         self.progressBar()
-                                        self.FriendCircularProgress.setProgressWithAnimation(duration: 1.0, value: 0.66, from: 0.33)
+                                        self.FriendCircularProgress.setProgressWithAnimation(duration: 1.0, value: 0.50, from: 0.25)
                                     }
-                                    else if (friendProgress == "100%")
+                                    else if (friendProgress == "75.0%")
                                     {
                                         print("Progress: \(friendProgress)")
                                         self.progressBar()
-                                        self.FriendCircularProgress.setProgressWithAnimation(duration: 1.0, value: 1.0, from: 0.66)
+                                        self.FriendCircularProgress.setProgressWithAnimation(duration: 1.0, value: 0.75, from: 0.50)
+                                    }
+                                    else if (friendProgress == "100.0%")
+                                    {
+                                        print("Progress: \(friendProgress)")
+                                        self.progressBar()
+                                        self.FriendCircularProgress.setProgressWithAnimation(duration: 1.0, value: 1.0, from: 0.75)
                                         self.db?.child("Friends").child(String(self.name)).child("isFriendDone").setValue(true)
                                     }
                                 }

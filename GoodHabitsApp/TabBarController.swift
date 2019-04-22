@@ -44,11 +44,11 @@ class TabBarController: UITabBarController {
             if (snapshot.exists())
             {
                 let snap = snapshot.value as! NSDictionary
-                if snapshot.hasChild("isFriendDone")
+                if snapshot.hasChild("Progress")
                 {
                     
-                    let isFriendDone = snap["isFriendDone"] as! Bool
-                    if (isFriendDone == true)
+                    let progress = snap["Progress"] as! String
+                    if (progress == "100.0%")
                     {
                         self.tabBar.items![4].badgeValue = "1"
                     }
