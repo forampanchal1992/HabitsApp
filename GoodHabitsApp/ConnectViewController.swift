@@ -14,8 +14,8 @@ class ConnectViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     
     @IBOutlet weak var nameLabel: UILabel!
     
-    @IBOutlet weak var customeHabitTextField: UITextField!
     @IBOutlet weak var toTextField: UITextField!
+    
     
     var currentTextField = UITextField()
     var pickerView = UIPickerView()
@@ -73,7 +73,10 @@ class ConnectViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
                     self.habits.append(valueOfKey)
                 }
                 print("Habis from Array of String : \(self.habits)")
+                print("SUBHabits...\(self.habits.count)")
+                
             }
+            
         })
     }
     
@@ -109,15 +112,13 @@ class ConnectViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         if(selectedHabit != nil)
         {
             print("Selected habit is: \(selectedHabit!)")
-            isTimerRunning = true
+        
             self.db.child("Friends").child(String(name)).child("Habit").setValue(selectedHabit!)
-            self.db.child("Friends").child(String(name)).child("isTimerRunning").setValue(isTimerRunning)
             
         }
         
         let sharedPreferences = UserDefaults.standard
         sharedPreferences.set(selectedHabit, forKey:"Habit")
-        sharedPreferences.set(isTimerRunning, forKey:"Timer")
     }
     
     

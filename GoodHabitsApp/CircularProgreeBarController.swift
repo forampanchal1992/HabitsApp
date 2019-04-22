@@ -37,7 +37,7 @@ class CircularProgreeBarController: UIViewController {
     var score : Int = 0
     
     var seconds = 50 //86400
-//    var timer = Timer()
+
     var timer:Timer?
     var isTimerRunning = false
     var counter = 0
@@ -47,30 +47,13 @@ class CircularProgreeBarController: UIViewController {
         super.viewDidLoad()
         self.db = Database.database().reference()
         
-        checkSharedPreferences()
+        //checkSharedPreferences()
         progressBar()
         
     }
-  
-//    func checkTimer() {
-//
-//        self.db?.child("Friends").child(String(name)).observe(.value, with: { (snapshot) in
-//
-////            print("$$$Is Timer Running: \(snapshot.value!)")
-//            let snap = snapshot.value as? NSDictionary
-//            let timerValue = snap!["isTimerRunning"] as! Bool
-//
-//            if(timerValue == true)
-//            {
-//                self.runTimer()
-//            }
-//            else
-//            {
-//                print("Timer is not running")
-//            }
-//        })
-//    }
-    
+    override func viewDidAppear(_ animated: Bool) {
+        checkSharedPreferences()
+    }
     func progressBar() {
         
         CircularProgress.trackColor = UIColor.lightGray
@@ -111,46 +94,6 @@ class CircularProgreeBarController: UIViewController {
             getHabitData()
         }
     }
-//
-//    func runTimer() {
-//        print("Run timer Called")
-//        self.seconds = 50 // 86400
-//        timer = Timer.scheduledTimer(timeInterval: 1, target: self,   selector: (#selector(CircularProgreeBarController.updateTimer)), userInfo: nil, repeats: true)
-//        timer?.fire()
-//        RunLoop.current.add(timer!, forMode: .common)
-//        timer!.tolerance = 0.1
-//
-////        self.timer = timer
-//
-//        isTimerRunning = false
-//    }
-//
-//    @objc func updateTimer() {
-//        seconds -= 1
-//        timerLabel.text = timeString(time: TimeInterval(seconds))
-//        if (seconds == 0)
-//        {
-//            print("Second : \(seconds)")
-//            resetTimer()
-//        }
-//    }
-//
-//    func resetTimer() {
-//        timer!.invalidate()
-//        seconds = 0
-//        timerLabel.text = timeString(time: TimeInterval(seconds))
-//        isTimerRunning = true
-//        counter = counter + 1
-//        print("Counter : \(counter)")
-//        runTimer()
-//    }
-//
-//    func timeString(time:TimeInterval) -> String {
-//        let hours = Int(time) / 3600
-//        let minutes = Int(time) / 60 % 60
-//        let seconds = Int(time) % 60
-//        return String(format:"%02i:%02i:%02i", hours, minutes, seconds)
-//    }
     
     func nullToNil(value : Any?) -> Any? {
         if value is NSNull {
@@ -164,18 +107,24 @@ class CircularProgreeBarController: UIViewController {
     {
         self.db?.child("Habits").child(String(habit)).observe(.value, with: { (snapshot) in
             
+            
             print("Sub-Habits are: \(snapshot.value!)")
             let subHabits = snapshot.value as? NSMutableArray
             
             if(snapshot.exists())
             {
-                print("\(snapshot.childrenCount) habis found.")
+                print("\(snapshot.childrenCount) habits found.")
                 for key in subHabits!
                 {
                     let sub = self.nullToNil(value: key)
                     
+                    print(">>>>>>>>>>>\(self.subHabit.count)")
                     if(sub != nil)
                     {
+                        if (self.subHabit.count > 3)
+                        {
+                            self.subHabit.remove(at: 0)
+                        }
                         self.subHabit.append(sub as! String)
                     }
                 }
@@ -199,7 +148,8 @@ class CircularProgreeBarController: UIViewController {
         let numberOfButtons = subHabit.count
         let wd = Int(mScrollView.frame.width)/2
         let ht = Int(mScrollView.frame.height)/2 - 50
-        
+//        print("<<<<<<<<<,,\(numberOfRows)")
+//        print("<<<<<<<<<<<< \(numberOfButtons) llll")
         for _ in 1...numberOfRows
         {
             px = 0
@@ -208,8 +158,7 @@ class CircularProgreeBarController: UIViewController {
                 for j in 0...numberOfButtons/2
                 {
                     
-                    print("Widht \(wd) &&&& height \(ht)")
-                    
+//                    print("Widht \(wd) &&&& height \(ht)")
                     count += 1
                     let Button = UIButton()
                     Button.tag = count
@@ -231,6 +180,7 @@ class CircularProgreeBarController: UIViewController {
                  {
                     count += 1
                     let Button = UIButton()
+                     //Button.removeFromSuperview()
                     Button.tag = count
                     Button.layer.cornerRadius = 10
                     Button.layer.borderWidth = 3
@@ -240,6 +190,7 @@ class CircularProgreeBarController: UIViewController {
                     Button.setTitle("\(subHabit[j])", for: .normal)
                     Button.addTarget(self, action: #selector(HabitButtons), for: .touchUpInside)
                     mScrollView.addSubview(Button)
+                   
                     px = px + wd
                     print("Second WIDTH.........\(mScrollView.frame.width)")
                 }
@@ -254,12 +205,14 @@ class CircularProgreeBarController: UIViewController {
         print("\(sender.tag) is Selected")
         sender.isEnabled = false
         sender.alpha = 0.50
+        sender.isHidden = true
         let title = sender.currentTitle
         sharedPreferences.set(title, forKey: "Title")
-        let sec = 3 //86400
+        let sec = 86400
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(sec)) {
             sender.isEnabled = true
             sender.alpha = 1.0
+            sender.isHidden = false
             
         }
         
