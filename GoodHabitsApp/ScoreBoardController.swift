@@ -11,6 +11,7 @@ import UIKit
 import FirebaseDatabase
 import Firebase
 
+
 class ScoreBoardController: UIViewController {
 
     @IBOutlet weak var ScoreLabel: UILabel!

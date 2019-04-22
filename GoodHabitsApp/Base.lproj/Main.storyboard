@@ -301,6 +301,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="nameLabel" destination="F59-d6-PAG" id="leq-mQ-bHN"/>
+                        <outlet property="startButton" destination="Npf-eB-2so" id="JqN-MI-WN5"/>
                         <outlet property="toTextField" destination="ogr-HQ-hs7" id="fiJ-fu-QI5"/>
                     </connections>
                 </viewController>
